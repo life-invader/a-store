@@ -1,0 +1,19 @@
+.header {
+  padding: 20px;
+  display: flex;
+  justify-content: space-between;
+}
+
+.header__link {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ef3124;
+  text-decoration: none;
+}
+
+.header__menu-button {
+  font-size: 32px;
+  font-weight: 700;
+  color: #000000;
+  text-transform: uppercase;
+}

@@ -1,0 +1,23 @@
+.cart-button {
+  width: 80px;
+  height: 80px;
+  background-color: #ef3124;
+  border-radius: 50%;
+  position: fixed;
+  top: 150px;
+  right: 35px;
+}
+
+.cart-button__amount {
+  color: #ffffff;
+  width: 30px;
+  height: 30px;
+  background-color: #000000;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  top: 55px;
+  left: 50px;
+}
