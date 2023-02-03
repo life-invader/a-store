@@ -1,13 +1,16 @@
 import { Link } from 'react-router-dom';
+import { AppRoutes } from '../../constants/routes';
+import SideMenu from '../side-menu/side-menu';
+
 import './header.css';
 
 function Header() {
   return (
     <header className="header">
-      <Link className="header__link" to="/">
+      <Link className="header__link" to={AppRoutes.Main}>
         A-Store
       </Link>
-      <p className="header__menu-button">Меню</p>
+      <SideMenu title="Меню" />
     </header>
   );
 }

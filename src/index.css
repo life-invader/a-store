@@ -1,3 +1,30 @@
+@font-face {
+  font-family: 'Styrene UI';
+  src:
+    url('https://alfabank.servicecdn.ru/media/fonts/styrene-ui/styrene-ui_regular.woff2') format('woff2'),
+    url('https://alfabank.servicecdn.ru/media/fonts/styrene-ui/styrene-ui_regular.woff') format('woff');
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Styrene UI';
+  src:
+    url('https://alfabank.servicecdn.ru/media/fonts/styrene-ui/styrene-ui_medium.woff2') format('woff2'),
+    url('https://alfabank.servicecdn.ru/media/fonts/styrene-ui/styrene-ui_medium.woff') format('woff');
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'Styrene UI';
+  src:
+    url('https://alfabank.servicecdn.ru/media/fonts/styrene-ui/styrene-ui_bold.woff2') format('woff2'),
+    url('https://alfabank.servicecdn.ru/media/fonts/styrene-ui/styrene-ui_bold.woff') format('woff');
+  font-weight: 700;
+  font-style: normal;
+}
+
 *,
 *::after,
 *::before {
@@ -11,9 +38,9 @@ ul, ol {
 }
 
 body {
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: 'Styrene UI', Arial, sans-serif;
   font-size: 20px;
-  line-height: 24px;
+  line-height: 1.2;
   font-weight: 400;
   color: #000000;
 }
