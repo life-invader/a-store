@@ -1,0 +1,10 @@
+.side-menu__button {
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.side-menu__list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

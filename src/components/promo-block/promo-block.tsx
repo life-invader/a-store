@@ -9,9 +9,8 @@ interface IPromoBlock {
 
 function PromoBlock({ title, imgSrc, pageLink }: IPromoBlock) {
   return (
-    <Link className="promo" to={pageLink}>
+    <Link className="promo" to={pageLink} style={{ backgroundImage: `url(${imgSrc})` }}>
       <h2 className="promo__title">{title}</h2>
-      <img className="promo__img" src={imgSrc} alt="Картинка промо блока на главной странице" />
     </Link>
   );
 }
