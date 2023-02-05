@@ -8,33 +8,34 @@ import ErrorPage from './pages/error-page/error-page';
 import MadeInAlfa from './pages/made-in-alfa/made-in-alfa';
 import MainPage from './pages/main-page/main-page';
 import Cart from './pages/cart/cart';
+import { AppRoutes } from './constants/routes';
 
 import './index.css';
 
 const router = createBrowserRouter([
   {
-    path: '/',
+    path: AppRoutes.Main,
     element: <App />,
     errorElement: <ErrorPage />,
     children: [
       {
-        path: '/',
+        index: true,
         element: <MainPage />,
       },
       {
-        path: '/sdelano-v-alfe',
+        path: AppRoutes.MadeInAlfa,
         element: <MadeInAlfa />,
       },
       {
-        path: '/svoy-dizain',
+        path: AppRoutes.CustomDesign,
         element: <CustomDesign />,
       },
       {
-        path: '/contact-us',
+        path: AppRoutes.Contacts,
         element: <Contacts />,
       },
       {
-        path: '/cart',
+        path: AppRoutes.Cart,
         element: <Cart />,
       },
     ],

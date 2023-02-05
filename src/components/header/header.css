@@ -1,7 +1,11 @@
 .header {
-  padding: 20px;
+  padding: 6px 30px 6px;
   display: flex;
   justify-content: space-between;
+  position: sticky;
+  top: 0;
+  background-color: #ffffff;
+  z-index: 1;
 }
 
 .header__link {
@@ -9,6 +13,8 @@
   font-weight: 700;
   color: #ef3124;
   text-decoration: none;
+  display: flex;
+  align-items: center;
 }
 
 .header__menu-button {
@@ -16,4 +22,12 @@
   font-weight: 700;
   color: #000000;
   text-transform: uppercase;
+  align-self: center;
+}
+
+@media (max-width: 360px) {
+  .header {
+    flex-direction: column;
+    gap: 20px;
+  }
 }
