@@ -7,7 +7,7 @@ import { AppRoutes } from '../../constants/routes';
 
 import './side-menu.css';
 
-const Links = {
+export const Links = {
   [AppRoutes.MadeInAlfa]: 'Сделано в Альфе',
   [AppRoutes.CustomDesign]: 'Свой дизайн',
   [AppRoutes.Contacts]: 'Контакты',
@@ -39,7 +39,6 @@ function SideMenu({ title }: ISideMenu) {
         size="s"
         placement="right"
         nativeScrollbar={false}
-        keepMounted={true}
         breakpoint={768}>
         <SidePanelResponsive.Header hasCloser={true} />
 

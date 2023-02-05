@@ -5,9 +5,9 @@ import './catalog-list.css';
 
 function CatalogList() {
   return (
-    <ul className="catalog-list">
+    <ul className="catalog-list" data-testid="catalog-list">
       {products.map((item) => (
-        <li key={item.id} className="catalog-list__item">
+        <li key={item.id} className="catalog-list__item" data-testid="catalog-item">
           <CatalogItem {...item} />
         </li>
       ))}
