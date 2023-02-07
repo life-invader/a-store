@@ -1,4 +1,4 @@
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import SideMenu, { Links } from './side-menu';
@@ -31,13 +31,9 @@ test('Проверяет рендер компонента <PromoBlock />', asyn
   const closeButton = screen.getByLabelText('закрыть');
   fireEvent.click(closeButton);
 
-  await new Promise((resolve) => {
-    setTimeout(() => {
-      resolve('');
-    }, 1000);
-  });
+  await waitForElementToBeRemoved(closeButton);
 
   Object.values(Links).forEach((item) => {
-    expect(screen.queryByText(item)).not.toBeInTheDocument();
+    expect(screen.queryByText(item)).toBeNull();
   });
 });

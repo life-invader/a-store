@@ -11,6 +11,10 @@ function Cart() {
         <li className="cart__list-item">
           <CartItem />
         </li>
+
+        <li className="cart__list-item">
+          <CartItem />
+        </li>
       </ul>
     </div>
   );
