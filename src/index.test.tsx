@@ -1,4 +1,3 @@
-/* eslint-disable testing-library/no-debugging-utils */
 import { render, screen, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
