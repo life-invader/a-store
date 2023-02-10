@@ -1,0 +1,27 @@
+.product {
+  width: 100%;
+  height: 100%;
+  display: block;
+  text-decoration: none;
+  color: inherit;
+}
+
+.product__img-wrapper {
+  background-color: gray;
+  height: 370px;
+}
+
+.product__img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.product__info {
+  margin-top: 20px;
+}
+
+.product__price {
+  margin-top: 10px;
+  font-weight: 700;
+}

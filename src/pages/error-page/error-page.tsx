@@ -1,5 +1,9 @@
 function ErrorPage() {
-  return <div>ErrorPage</div>;
+  return (
+    <section className="error-page">
+      <p>ErrorPage</p>
+    </section>
+  );
 }
 
 export default ErrorPage;

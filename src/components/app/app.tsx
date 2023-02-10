@@ -9,7 +9,7 @@ function App() {
   return (
     <>
       <Header />
-      <main className="app">
+      <main className="app" data-testid="app">
         <Outlet />
       </main>
       <Footer />
