@@ -1,0 +1,36 @@
+.custom-design {
+  padding: 40px 10px 40px;
+}
+
+.custom-design-list {
+  display: flex;
+  flex-direction: column;
+  /* row-gap: 150px; */
+}
+
+.custom-design__title {
+  font-size: 110px;
+  line-height: 1;
+}
+
+.custom-design__text {
+  max-width: 500px;
+  /* margin-bottom: 75px; */
+}
+
+.custom-design__footer {
+  opacity: 0.25;
+  max-width: 550px;
+}
+
+@media (max-width: 992px) {
+  .custom-design__text {
+    margin-top: 10px;
+  }
+}
+
+@media (max-width: 768px) {
+  .custom-design__title {
+    font-size: 60px;
+  }
+}

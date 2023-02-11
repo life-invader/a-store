@@ -1,7 +1,7 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
-import { products } from '../../../data';
+import { Products } from '../../../data';
 import CatalogList from './catalog-list';
 
 test('Проверяет рендер компонента <CatalogList />', () => {
@@ -10,5 +10,5 @@ test('Проверяет рендер компонента <CatalogList />', () 
   const list = screen.getByTestId('catalog-list');
   expect(list).toBeInTheDocument();
   const renderedProducts = screen.getAllByTestId('catalog-item');
-  expect(renderedProducts.length).toBe(products.length);
+  expect(renderedProducts.length).toBe(Products.length);
 });
