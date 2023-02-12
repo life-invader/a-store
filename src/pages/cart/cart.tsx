@@ -1,6 +1,6 @@
 import OrderForm from './order-form/order-form';
-import './cart.css';
 import CartItem from './cart-item/cart-item';
+import './cart.css';
 
 function Cart() {
   return (

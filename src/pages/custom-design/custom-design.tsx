@@ -15,7 +15,10 @@ function CustomDesign() {
 
       <ul className="custom-design-list">
         {groups.map((category) => (
-          <li className="custom-design-list__item" key={category.id}>
+          <li
+            className="custom-design-list__item"
+            key={category.id}
+            data-testid="custom-design-group">
             <CatalogList
               products={category.products}
               title={category.title}

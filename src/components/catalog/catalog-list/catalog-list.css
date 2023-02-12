@@ -1,5 +1,5 @@
 .catalog {
-  padding: 75px 0 75px;
+  padding: 75px 0;
 }
 
 .catalog__title {
@@ -28,8 +28,17 @@
 }
 
 @media (max-width: 768px) {
+  .catalog {
+    padding: 50px 0;
+  }
+
   .catalog__list {
     grid-template-columns: repeat(2, 1fr);
+  }
+
+  .catalog__title {
+    font-size: 50px;
+    line-height: 1.1;
   }
 }
 

@@ -46,7 +46,7 @@
   }
 
   .product__img {
-    height: 600px;
+    height: 610px;
   }
 }
 
@@ -58,5 +58,12 @@
 
   .product__img {
     height: 800px;
+  }
+}
+
+@media (max-width: 576px) {
+  .product__img {
+    height: auto;
+    max-height: 610px;
   }
 }

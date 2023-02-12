@@ -1,4 +1,5 @@
 import CatalogItem from '../catalog-item/catalog-item';
+import { Typography } from '@alfalab/core-components/typography';
 import type { IProduct } from '../../../types/types';
 
 import './catalog-list.css';
@@ -14,7 +15,9 @@ function CatalogList({ products, description, title }: ICatalogList) {
     <div className="catalog">
       {description && title && (
         <>
-          <h2 className="catalog__title">{title}</h2>
+          <Typography.TitleResponsive tag="h2" className="catalog__title">
+            {title}
+          </Typography.TitleResponsive>
           <p className="catalog__description">{description}</p>
         </>
       )}

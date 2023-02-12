@@ -3,9 +3,8 @@ import type { ICategory, IProduct } from './types/types';
 export const Products: IProduct[] = [
   {
     "id": 0,
-    "preview": "http://qa-games.ru/astore/public/images/15932051.jpeg",
+    "preview": "http://qa-games.ru/astore/public/images/15586005.jpeg",
     "images": [
-      "http://qa-games.ru/astore/public/images/15932051.jpeg",
       "http://qa-games.ru/astore/public/images/15586005.jpeg",
       "http://qa-games.ru/astore/public/images/45862782.jpeg",
       "http://qa-games.ru/astore/public/images/75259815.jpeg"
