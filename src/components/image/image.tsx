@@ -25,7 +25,7 @@ function Image({ src: urlImage, alt, onClick, className, testId }: IImageProps) 
       className={className}
       src={src}
       alt={alt}
-      onClick={onClick || undefined}
+      onClick={onClick}
       onError={errorHandler}
       data-testid={testId}
     />

@@ -1,7 +1,3 @@
-import type { IProduct } from "../../../types/types";
-
-export interface IProductFormProps extends IProduct { }
-
 export interface IProductOptions {
   size: { key: string; content: string } | undefined,
   color: { key: string; content: string } | undefined,

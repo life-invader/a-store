@@ -1,7 +1,7 @@
 import type { IProductOptions } from "../product-form/type";
 
 export interface ISelectProps {
-  options: { key: string; content: string }[] | undefined;
+  options: { key: string; content: string }[];
   selected: { key: string; content: string } | undefined;
   label: string;
   name: string;

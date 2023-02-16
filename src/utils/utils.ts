@@ -16,5 +16,5 @@ export const transformOptions = (options: IProductOptions) => {
     }
 
     return acc;
-  }, {} as { [K in keyof IProductOptions]: string });
+  }, {} as { [K in keyof IProductOptions]?: string });
 }

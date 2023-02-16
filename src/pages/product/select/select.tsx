@@ -7,16 +7,12 @@ export function Select({ options, label, onChange, name, selected }: ISelectProp
     evt.selected && onChange({ [name]: evt.selected });
   };
 
-  if (!options) {
-    return null;
-  }
-
   return (
     <SelectResponsive
       allowUnselect={true}
       size="s"
       options={options}
-      name={label}
+      name={name}
       placeholder={label}
       label={label}
       labelView="outer"
