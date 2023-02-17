@@ -9,7 +9,9 @@ import MadeInAlfa from './pages/made-in-alfa/made-in-alfa';
 import MainPage from './pages/main-page/main-page';
 import Cart from './pages/cart/cart';
 import Product from './pages/product/product';
+import { Provider } from 'react-redux';
 import { AppRoutes } from './constants/routes';
+import { store } from './store/store';
 
 import './index.css';
 
@@ -50,6 +52,8 @@ const router = createBrowserRouter([
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
 root.render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <Provider store={store}>
+      <RouterProvider router={router} />
+    </Provider>
   </React.StrictMode>,
 );
