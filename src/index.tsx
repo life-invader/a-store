@@ -12,9 +12,9 @@ import Product from './pages/product/product';
 import { Provider } from 'react-redux';
 import { AppRoutes } from './constants/routes';
 import { store } from './store/store';
+import ErrorBoundary from './components/error-boundary/error-boundary';
 
 import './index.css';
-import ErrorBoundary from './components/error-boundary/error-boundary';
 
 const router = createBrowserRouter([
   {

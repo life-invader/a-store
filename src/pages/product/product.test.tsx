@@ -4,7 +4,7 @@ import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import Product from './product';
 import { CustomDesignProducts } from '../../mocks/api-your-design';
 import { Provider } from 'react-redux';
-import { store } from '../../store/store';
+import { createMockStore } from '../../utils/test-utils';
 
 const product = CustomDesignProducts[0].products[0];
 const productId = product.id;
@@ -26,12 +26,13 @@ describe('Проверяет рендер компонента <Product />', () 
   });
 
   test('Проверяет рендер компонента <Product />', async () => {
+    const store = createMockStore();
+
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
         json: () => Promise.resolve(product),
       } as Response),
     );
-
     jest.spyOn(store, 'dispatch');
 
     render(
@@ -40,23 +41,17 @@ describe('Проверяет рендер компонента <Product />', () 
       </Provider>,
     );
 
-    // Дождаться закрытия спиннера в компоненте
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve('');
-      }, 1000);
-    });
-
     const title = await screen.findByText(product.title);
     expect(title).toBeInTheDocument();
     expect(store.dispatch).toHaveBeenCalled();
   });
 
   test('Проверяет обработку ошибок в компоненте <Product />', () => {
+    const store = createMockStore();
+
     jest.spyOn(global, 'fetch').mockImplementation(() => {
       throw new Error();
     });
-
     jest.spyOn(store, 'dispatch');
 
     render(

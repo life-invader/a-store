@@ -1,10 +1,10 @@
-import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { render, screen } from '@testing-library/react';
 import CustomDesign from './custom-design';
 import { MemoryRouter } from 'react-router-dom';
 import { CustomDesignProducts } from '../../mocks/api-your-design';
 import { Provider } from 'react-redux';
-import { store } from '../../store/store';
+import { createMockStore } from '../../utils/test-utils';
 
 describe('Проверка работы компонента <CustomDesign />', () => {
   afterEach(() => {
@@ -12,12 +12,13 @@ describe('Проверка работы компонента <CustomDesign />', 
   });
 
   test('Проверяет рендер компонента <CustomDesign />', async () => {
+    const store = createMockStore();
+
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
         json: () => Promise.resolve(CustomDesignProducts),
       } as Response),
     );
-
     jest.spyOn(store, 'dispatch');
 
     render(
@@ -27,13 +28,6 @@ describe('Проверка работы компонента <CustomDesign />', 
       { wrapper: MemoryRouter },
     );
 
-    // Дождаться закрытия спиннера в компоненте
-    await new Promise((resolve) => {
-      setTimeout(() => {
-        resolve('');
-      }, 1000);
-    });
-
     const title = screen.getByText('Свой дизайн');
     const screenGroups = await screen.findAllByTestId('custom-design-group');
     expect(title).toBeInTheDocument();
@@ -42,10 +36,11 @@ describe('Проверка работы компонента <CustomDesign />', 
   });
 
   test('Проверяет обработку ошибок в компоненте <CustomDesign />', async () => {
+    const store = createMockStore();
+
     jest.spyOn(global, 'fetch').mockImplementation(() => {
       throw new Error();
     });
-
     jest.spyOn(store, 'dispatch');
 
     render(

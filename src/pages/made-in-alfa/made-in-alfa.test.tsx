@@ -4,7 +4,7 @@ import { MemoryRouter } from 'react-router-dom';
 import MadeInAlfa from './made-in-alfa';
 import { AlfaMadeProducts } from '../../mocks/api-made-in-alfa';
 import { Provider } from 'react-redux';
-import { store } from '../../store/store';
+import { createMockStore } from '../../utils/test-utils';
 
 describe('Проверка работы компонента <MadeInAlfa />', () => {
   afterEach(() => {
@@ -12,12 +12,13 @@ describe('Проверка работы компонента <MadeInAlfa />', ()
   });
 
   test('Проверяет рендер компонента <MadeInAlfa />', () => {
+    const store = createMockStore();
+
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
         json: () => Promise.resolve(AlfaMadeProducts),
       } as Response),
     );
-
     jest.spyOn(store, 'dispatch');
 
     render(
@@ -32,11 +33,11 @@ describe('Проверка работы компонента <MadeInAlfa />', ()
     expect(store.dispatch).toHaveBeenCalled();
   });
 
-  test('Проверяет обработку ошибок в компоненте <MadeInAlfa />', () => {
+  test('Проверяет обработку ошибок в компоненте <MadeInAlfa />', async () => {
+    const store = createMockStore();
     jest.spyOn(global, 'fetch').mockImplementation(() => {
       throw new Error();
     });
-
     jest.spyOn(store, 'dispatch');
 
     render(

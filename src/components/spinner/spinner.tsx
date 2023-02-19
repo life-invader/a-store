@@ -3,7 +3,7 @@ import './style.css';
 
 function Spinner() {
   return (
-    <div className="spinner">
+    <div className="spinner" data-testid="spinner">
       <AlfaSpinner className="spinner__circle" visible={true} size="m" />
     </div>
   );

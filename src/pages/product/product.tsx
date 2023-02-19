@@ -30,7 +30,7 @@ function Product() {
 
   if (isError) {
     return (
-      <div className="product container">
+      <div className="product container" data-testid="product-test">
         <Error />
       </div>
     );
@@ -38,7 +38,7 @@ function Product() {
 
   if (showLoader) {
     return (
-      <div className="product container">
+      <div className="product container" data-testid="product-test">
         <Spinner />
       </div>
     );
