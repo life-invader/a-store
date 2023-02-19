@@ -1,14 +1,20 @@
 import { useEffect, useState } from 'react';
+import { MINIMUM_SPINNER_DELAY } from '../constants/common';
 
 export const useSpinnerDelay = (isLoading: boolean) => {
   const [showLoader, setShowLoader] = useState(true);
 
   useEffect(() => {
-    if (!isLoading) {
+    const checkLoader = () => {
       setTimeout(() => {
-        setShowLoader(false);
-      }, 1000);
-    }
+        if (!isLoading) {
+          setShowLoader(false);
+        }
+        checkLoader();
+      }, MINIMUM_SPINNER_DELAY);
+    };
+
+    checkLoader();
   }, [isLoading]);
 
   return showLoader;

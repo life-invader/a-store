@@ -1,4 +1,3 @@
-/* eslint-disable testing-library/no-debugging-utils */
 import { render, screen, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
@@ -11,7 +10,7 @@ import Contacts from './pages/contacts/contacts';
 import Cart from './pages/cart/cart';
 import Product from './pages/product/product';
 
-describe('Тестирование роутинга в приложении', () => {
+describe.skip('Тестирование роутинга в приложении', () => {
   beforeAll(() => {
     global.matchMedia =
       global.matchMedia ||

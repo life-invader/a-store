@@ -12,3 +12,5 @@ export const PromoData = [
     pageLink: '/svoy-dizain',
   },
 ];
+
+export const MINIMUM_SPINNER_DELAY = 1000;

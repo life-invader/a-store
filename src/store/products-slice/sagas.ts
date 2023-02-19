@@ -11,10 +11,8 @@ function* getAlfaProductsSaga() {
     const response: Response = yield call(fetch, ApiRoutes.AlfaMade);
     const data: IProduct[] = yield call([response, response.json]);
     yield put(productsActions.loadProducts(data));
-    console.log(data)
   } catch {
     yield put(productsActions.setStatus({ isError: true, isLoading: false }));
-    console.log('Не удалось загрузить: Сделано в Альфе')
   }
 }
 
@@ -24,10 +22,8 @@ function* getCustomProductsSaga() {
     const response: Response = yield call(fetch, ApiRoutes.CustomDesign);
     const data: ICategory[] = yield call([response, response.json]);
     yield put(productsActions.loadCategories(data));
-    console.log(data)
   } catch {
     yield put(productsActions.setStatus({ isError: true, isLoading: false }));
-    console.log('Не удалось загрузить: Свой дизайн')
   }
 }
 
@@ -37,10 +33,8 @@ function* getProductSaga({ payload }: PayloadAction<string>) {
     const response: Response = yield call(fetch, ApiRoutes.Product(payload));
     const data: IProduct = yield call([response, response.json]);
     yield put(productsActions.loadCurrentProduct(data));
-    console.log(data)
   } catch {
     yield put(productsActions.setStatus({ isError: true, isLoading: false }));
-    console.log('Не удалось загрузить: Товар')
   }
 }
 
