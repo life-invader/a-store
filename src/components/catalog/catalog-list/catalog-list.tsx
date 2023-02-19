@@ -1,11 +1,11 @@
 import CatalogItem from '../catalog-item/catalog-item';
 import { Typography } from '@alfalab/core-components/typography';
-import type { IProduct } from '../../../types/types';
+import type { IProductPreview } from '../../../types/types';
 
 import './catalog-list.css';
 
 interface ICatalogList {
-  products: IProduct[];
+  products: IProductPreview[];
   title?: string;
   description?: string;
 }

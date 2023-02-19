@@ -1,4 +1,3 @@
-/* eslint-disable testing-library/no-debugging-utils */
 import '@testing-library/jest-dom/extend-expect';
 import { render, screen, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
@@ -13,8 +12,8 @@ import Cart from './pages/cart/cart';
 import Product from './pages/product/product';
 import { createMockStore } from './utils/test-utils';
 import { Provider } from 'react-redux';
-import { CustomDesignProducts } from './mocks/api-your-design';
-import { AlfaMadeProducts } from './mocks/api-made-in-alfa';
+import { CustomDesignProductsMock } from './mocks/api-your-design';
+import { AlfaMadeProductsMock } from './mocks/api-made-in-alfa';
 
 describe('Тестирование роутинга в приложении', () => {
   beforeAll(() => {
@@ -60,7 +59,7 @@ describe('Тестирование роутинга в приложении', ()
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
-        json: () => Promise.resolve(AlfaMadeProducts),
+        json: () => Promise.resolve(AlfaMadeProductsMock),
       } as Response),
     );
 
@@ -90,7 +89,7 @@ describe('Тестирование роутинга в приложении', ()
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
-        json: () => Promise.resolve(CustomDesignProducts),
+        json: () => Promise.resolve(CustomDesignProductsMock),
       } as Response),
     );
 
@@ -163,7 +162,7 @@ describe('Тестирование роутинга в приложении', ()
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
-        json: () => Promise.resolve(AlfaMadeProducts),
+        json: () => Promise.resolve(AlfaMadeProductsMock),
       } as Response),
     );
 
@@ -179,6 +178,7 @@ describe('Тестирование роутинга в приложении', ()
       { wrapper: MemoryRouter },
     );
 
+    await waitForElementToBeRemoved(screen.queryByTestId('spinner'));
     const productCards = await screen.findAllByTestId('product-card-test');
     userEvent.click(productCards[0]);
     await waitForElementToBeRemoved(productCards[0]);

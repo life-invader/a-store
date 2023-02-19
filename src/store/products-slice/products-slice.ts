@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ICategory, IProduct } from '../../types/types';
+import type { ICategory, IProduct, IProductPreview } from '../../types/types';
 import type { IProductsSlice } from './type';
 
 const initialState: IProductsSlice = {
@@ -20,7 +20,7 @@ const productsSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
     },
-    loadProducts(state, { payload }: PayloadAction<IProduct[]>) {
+    loadProducts(state, { payload }: PayloadAction<IProductPreview[]>) {
       state.products = payload;
       state.isLoading = false;
       state.isError = false;

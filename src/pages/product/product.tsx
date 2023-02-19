@@ -57,7 +57,7 @@ function Product() {
         <div className="product__info">
           <p className="product__title">{title}</p>
           <p className="product__price">{formatPrice(price)} ₽</p>
-          <ProductForm {...product!} />
+          <ProductForm {...product} />
           <p className="product__description">{description}</p>
         </div>
       </div>

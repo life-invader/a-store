@@ -2,7 +2,7 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import MadeInAlfa from './made-in-alfa';
-import { AlfaMadeProducts } from '../../mocks/api-made-in-alfa';
+import { AlfaMadeProductsMock } from '../../mocks/api-made-in-alfa';
 import { Provider } from 'react-redux';
 import { createMockStore } from '../../utils/test-utils';
 
@@ -16,7 +16,7 @@ describe('Проверка работы компонента <MadeInAlfa />', ()
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
-        json: () => Promise.resolve(AlfaMadeProducts),
+        json: () => Promise.resolve(AlfaMadeProductsMock),
       } as Response),
     );
     jest.spyOn(store, 'dispatch');

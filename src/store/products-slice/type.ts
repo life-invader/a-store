@@ -1,8 +1,8 @@
-import type { ICategory, IProduct } from "../../types/types";
+import type { ICategory, IProduct, IProductPreview } from "../../types/types";
 
 export interface IProductsSlice {
   currentProduct: IProduct | null;
-  products: IProduct[];
+  products: IProductPreview[];
   categories: ICategory[];
   cart: {};
   isLoading: boolean;

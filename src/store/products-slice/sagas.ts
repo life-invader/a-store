@@ -1,15 +1,15 @@
 import { takeLatest, call, put } from 'redux-saga/effects';
 import { productsActions } from './products-slice';
 import { getAlfaProductsAction, getCustomProductsAction, getProductAction } from './actions';
-import type { ICategory, IProduct } from '../../types/types';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { ApiRoutes } from '../../constants/api-routes';
+import type { ICategory, IProduct, IProductPreview } from '../../types/types';
 
 function* getAlfaProductsSaga() {
   try {
     yield put(productsActions.setStatus({ isError: false, isLoading: true }));
     const response: Response = yield call(fetch, ApiRoutes.AlfaMade);
-    const data: IProduct[] = yield call([response, response.json]);
+    const data: IProductPreview[] = yield call([response, response.json]);
     yield put(productsActions.loadProducts(data));
   } catch {
     yield put(productsActions.setStatus({ isError: true, isLoading: false }));

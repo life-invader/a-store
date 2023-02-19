@@ -2,13 +2,11 @@ import '@testing-library/jest-dom/extend-expect';
 import { render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import Product from './product';
-import { CustomDesignProducts } from '../../mocks/api-your-design';
 import { Provider } from 'react-redux';
 import { createMockStore } from '../../utils/test-utils';
+import { ProductMock } from '../../mocks/api-product';
 
-const product = CustomDesignProducts[0].products[0];
-const productId = product.id;
-
+const productId = ProductMock.id;
 const routes = [
   {
     path: '/product/:id',
@@ -30,7 +28,7 @@ describe('Проверяет рендер компонента <Product />', () 
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
-        json: () => Promise.resolve(product),
+        json: () => Promise.resolve(ProductMock),
       } as Response),
     );
     jest.spyOn(store, 'dispatch');
@@ -41,7 +39,7 @@ describe('Проверяет рендер компонента <Product />', () 
       </Provider>,
     );
 
-    const title = await screen.findByText(product.title);
+    const title = await screen.findByText(ProductMock.title);
     expect(title).toBeInTheDocument();
     expect(store.dispatch).toHaveBeenCalled();
   });

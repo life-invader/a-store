@@ -2,11 +2,11 @@ import { Link } from 'react-router-dom';
 import { formatPrice } from '../../../utils/utils';
 import { AppRoutes } from '../../../constants/routes';
 import Image from '../../image/image';
-import type { IProduct } from '../../../types/types';
+import type { IProductPreview } from '../../../types/types';
 
 import './catalog-item.css';
 
-function CatalogItem({ id, preview, price, title, subtitle }: IProduct) {
+function CatalogItem({ id, preview, price, title, subtitle }: IProductPreview) {
   return (
     <Link className="product-card" to={AppRoutes.Product(id)}>
       <div className="product-card__img-wrapper">
