@@ -29,6 +29,12 @@ describe('Проверка работы компонента <CustomDesign />', 
     );
 
     const title = screen.getByText('Свой дизайн');
+
+    // Ждем пока пропадет спиннер
+    await new Promise((resolve) => {
+      setTimeout(() => resolve(''), 1000);
+    });
+
     const screenGroups = await screen.findAllByTestId('custom-design-group');
     expect(title).toBeInTheDocument();
     expect(screenGroups).toHaveLength(CustomDesignProductsMock.length);

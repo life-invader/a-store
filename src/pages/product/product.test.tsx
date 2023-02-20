@@ -39,6 +39,11 @@ describe('Проверяет рендер компонента <Product />', () 
       </Provider>,
     );
 
+    // Ждем пока пропадет спиннер
+    await new Promise((resolve) => {
+      setTimeout(() => resolve(''), 1000);
+    });
+
     const title = await screen.findByText(ProductMock.title);
     expect(title).toBeInTheDocument();
     expect(store.dispatch).toHaveBeenCalled();

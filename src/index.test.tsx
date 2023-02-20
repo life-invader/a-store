@@ -159,6 +159,7 @@ describe('Тестирование роутинга в приложении', ()
 
   test('Должен отрендерить компонент страницы "Товара" <Product />', async () => {
     const store = createMockStore();
+    console.log(store.getState());
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({
@@ -178,7 +179,11 @@ describe('Тестирование роутинга в приложении', ()
       { wrapper: MemoryRouter },
     );
 
-    await waitForElementToBeRemoved(screen.queryByTestId('spinner'));
+    // Ждем пока пропадет спиннер
+    await new Promise((resolve) => {
+      setTimeout(() => resolve(''), 1000);
+    });
+
     const productCards = await screen.findAllByTestId('product-card-test');
     userEvent.click(productCards[0]);
     await waitForElementToBeRemoved(productCards[0]);

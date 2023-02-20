@@ -9,6 +9,7 @@ export const useSpinnerDelay = (isLoading: boolean) => {
       setTimeout(() => {
         if (!isLoading) {
           setShowLoader(false);
+          return;
         }
         checkLoader();
       }, MINIMUM_SPINNER_DELAY);
