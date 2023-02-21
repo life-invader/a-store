@@ -1,5 +1,5 @@
 import { Outlet } from 'react-router-dom';
-import CartButton from '../cart-button/cart-button';
+import CartButton from '../cart/cart/cart';
 import Footer from '../footer/footer';
 import Header from '../header/header';
 

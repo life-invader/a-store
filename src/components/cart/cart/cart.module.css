@@ -1,20 +1,19 @@
 .cart-button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
   width: 80px;
   height: 80px;
+  border: none;
   background-color: #ef3124;
   border-radius: 50%;
   position: fixed;
   top: 100px;
   right: 35px;
-  box-shadow: 0px 0px 10px 1px #000000;
-  transition: all 0.2s;
+  cursor: pointer;
 }
 
-.cart-button:hover {
-  box-shadow: 0px 0px 10px 5px #000000;
-}
-
-.cart-button__amount {
+.amount {
   color: #ffffff;
   width: 30px;
   height: 30px;
@@ -36,7 +35,7 @@
     right: 25px;
   }
 
-  .cart-button__amount {
+  .amount {
     width: 24px;
     height: 24px;
     top: 40px;
