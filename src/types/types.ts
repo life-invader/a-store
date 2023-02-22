@@ -24,3 +24,17 @@ export interface ICategory {
   description: string;
   products: IProductPreview[];
 }
+
+export interface IProductOptions {
+  size?: string;
+  color?: string;
+  model?: string;
+  stickerNumber?: string;
+}
+
+export interface ICartItem {
+  item: IProduct;
+  quantity: number;
+  itemTotal: number;
+  options: IProductOptions;
+}

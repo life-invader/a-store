@@ -1,4 +1,6 @@
 import { useState } from 'react';
+import { useSelector } from 'react-redux';
+import { selectCart, selectIsCartLength } from '../../../store/products-slice/selectors';
 import CartPanel from '../cart-panel/cart-panel';
 
 import styles from './cart.module.css';
@@ -6,6 +8,8 @@ import styles from './cart.module.css';
 function CartButton() {
   const [open, setOpen] = useState(false);
   const handleModalOpen = () => setOpen(!open);
+  const cart = useSelector(selectCart);
+  const cartLength = useSelector(selectIsCartLength);
 
   return (
     <>
@@ -25,10 +29,10 @@ function CartButton() {
             d="M22 24V11c0-5.523 4.477-10 10-10s10 4.477 10 10v13"
           />
         </svg>
-        <div className={styles.amount}>12</div>
+        <div className={styles.amount}>{cartLength}</div>
       </button>
 
-      <CartPanel onClose={handleModalOpen} isOpen={open} />
+      <CartPanel onClose={handleModalOpen} isOpen={open} cart={cart} />
     </>
   );
 }

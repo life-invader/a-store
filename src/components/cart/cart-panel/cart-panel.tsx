@@ -1,8 +1,20 @@
 import { SidePanelResponsive } from '@alfalab/core-components/side-panel/Component.responsive';
 import CartList from '../cart-list/cart-list';
 import styles from './style.module.css';
+import { useSelector } from 'react-redux';
+import { selectCartTotalCost } from '../../../store/products-slice/selectors';
+import { formatPrice } from '../../../utils/utils';
+import type { ICartItem } from '../../../types/types';
 
-function CartPanel({ isOpen, onClose }: any) {
+interface ICartPanelProps {
+  cart: ICartItem[];
+  isOpen: boolean;
+  onClose: () => void;
+}
+
+function CartPanel({ isOpen, onClose, cart }: ICartPanelProps) {
+  const cartTotal = useSelector(selectCartTotalCost);
+
   return (
     <SidePanelResponsive
       open={isOpen}
@@ -19,8 +31,8 @@ function CartPanel({ isOpen, onClose }: any) {
       />
 
       <SidePanelResponsive.Content className={styles.content}>
-        <CartList />
-        <p className={styles.total}>Сумма: 9 798 ₽</p>
+        <CartList cart={cart} />
+        <p className={styles.total}>Сумма: {formatPrice(cartTotal)} ₽</p>
       </SidePanelResponsive.Content>
 
       <SidePanelResponsive.Footer className={styles.footer} sticky={true}>

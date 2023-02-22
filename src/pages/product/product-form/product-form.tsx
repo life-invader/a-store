@@ -1,12 +1,15 @@
 import { useState } from 'react';
 import { prepareSelectData, transformOptions } from '../../../utils/utils';
 import { Select } from '../select/select';
+import { useDispatch } from 'react-redux';
+import { productsActions } from '../../../store/products-slice/products-slice';
 import type { IProductOptions } from './type';
 import type { IProduct } from '../../../types/types';
 
 import './style.css';
 
 function ProductForm(product: IProduct) {
+  const dispatch = useDispatch();
   const selectsData = [product.colors, product.models, product.sizes, product.stickerNumbers].map(
     (item) => prepareSelectData(item),
   );
@@ -25,6 +28,7 @@ function ProductForm(product: IProduct) {
 
   const submitHandler = () => {
     const options = transformOptions(productOptions);
+    dispatch(productsActions.loadItemToCart(options));
     console.log(`В корзину добавлен товар: ${product.title}`);
     console.log('Опции: ', options);
   };
