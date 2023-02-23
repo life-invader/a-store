@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useSelector } from 'react-redux';
+import { CartPanelContext } from '../../../context/cart-panel-context';
 import { selectIsCartLength } from '../../../store/products-slice/selectors';
 import CartPanel from '../cart-panel/cart-panel';
 
@@ -7,8 +8,16 @@ import styles from './style.module.css';
 
 function Cart() {
   const [open, setOpen] = useState(false);
-  const handleModalOpen = () => setOpen(!open);
   const cartLength = useSelector(selectIsCartLength);
+
+  const handleModalOpen = () => setOpen(!open);
+  const handleModalClose = () => {
+    setOpen(false);
+  };
+
+  const context = {
+    closeModal: handleModalClose,
+  };
 
   return (
     <>
@@ -31,7 +40,9 @@ function Cart() {
         <div className={styles.amount}>{cartLength}</div>
       </button>
 
-      <CartPanel onClose={handleModalOpen} isOpen={open} />
+      <CartPanelContext.Provider value={context}>
+        <CartPanel onClose={handleModalOpen} isOpen={open} />
+      </CartPanelContext.Provider>
     </>
   );
 }

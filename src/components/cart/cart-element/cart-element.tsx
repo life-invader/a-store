@@ -1,13 +1,15 @@
 import { useDispatch } from 'react-redux';
 import { productsActions } from '../../../store/products-slice/products-slice';
 import { formatPrice } from '../../../utils/utils';
+import { AppRoutes } from '../../../constants/app-routes';
+import { Link } from 'react-router-dom';
 import type { ICartElementProps } from './type';
 import type { ICartItem } from '../../../types/types';
 import type { OptionNameType } from '../cart-list/type';
 
 import styles from './style.module.css';
-import { Link } from 'react-router-dom';
-import { AppRoutes } from '../../../constants/app-routes';
+import { useContext } from 'react';
+import { CartPanelContext } from '../../../context/cart-panel-context';
 
 const { incrementCartItem, decrementCartItem, removeCartItem } = productsActions;
 const OptionName: OptionNameType = {
@@ -19,6 +21,7 @@ const OptionName: OptionNameType = {
 
 function CartElement({ product }: ICartElementProps) {
   const dispatch = useDispatch();
+  const { closeModal } = useContext(CartPanelContext);
 
   const incrementItemQuantity = (element: ICartItem) => () => {
     dispatch(incrementCartItem(element));
@@ -32,6 +35,10 @@ function CartElement({ product }: ICartElementProps) {
     dispatch(removeCartItem(element));
   };
 
+  const onProductClick = () => {
+    closeModal();
+  };
+
   const { item, itemTotal, quantity, options } = product;
   const productOptions = Object.keys(options) as Array<keyof typeof options>;
 
@@ -42,13 +49,13 @@ function CartElement({ product }: ICartElementProps) {
       <div className={styles['product-body']}>
         <div className={styles['product-info']}>
           <h3 className={styles.title}>
-            <Link className={styles.link} to={AppRoutes.Product(item.id)}>
+            <Link className={styles.link} to={AppRoutes.Product(item.id)} onClick={onProductClick}>
               {item.title}
             </Link>
           </h3>
           <div className={styles.options}>
             {productOptions.map((item) => (
-              <p className={styles.option}>
+              <p className={styles.option} key={item}>
                 {OptionName[item]}: {options[item]}
               </p>
             ))}
