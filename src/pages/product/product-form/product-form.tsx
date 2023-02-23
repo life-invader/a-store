@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
 import { prepareSelectData, transformOptions } from '../../../utils/utils';
 import { Select } from '../select/select';
 import { useDispatch } from 'react-redux';
@@ -10,9 +10,12 @@ import styles from './style.module.css';
 
 function ProductForm(product: IProduct) {
   const dispatch = useDispatch();
-  const selectsData = [product.colors, product.models, product.sizes, product.stickerNumbers].map(
-    (item) => prepareSelectData(item),
-  );
+
+  const selectsData = useMemo(() => {
+    return [product.colors, product.models, product.sizes, product.stickerNumbers].map((item) =>
+      prepareSelectData(item),
+    );
+  }, [product.colors, product.models, product.sizes, product.stickerNumbers]);
   const [colors, models, sizes, stickerNumbers] = selectsData;
 
   const [productOptions, setProductOptions] = useState<ISelectOptions>({
@@ -30,6 +33,15 @@ function ProductForm(product: IProduct) {
     const options = transformOptions(productOptions);
     dispatch(productsActions.loadItemToCart(options));
   };
+
+  useEffect(() => {
+    setProductOptions({
+      size: sizes && sizes[0],
+      color: colors && colors[0],
+      model: models && models[0],
+      stickerNumber: stickerNumbers && stickerNumbers[0],
+    });
+  }, [colors, models, sizes, stickerNumbers]);
 
   return (
     <form className={styles.form} data-testid="product-form">
