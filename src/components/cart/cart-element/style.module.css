@@ -6,13 +6,13 @@
   position: relative;
 }
 
-.product-body {
+.body {
   display: grid;
   grid-template-columns: 150px 1fr;
   gap: 20px;
 }
 
-.product-footer {
+.footer {
   display: grid;
   grid-template-columns: 80px 80px 1fr;
   gap: 20px;
@@ -48,30 +48,11 @@
   font-size: 14px;
 }
 
-.input-wrapper {
+.wrapper {
   display: grid;
   grid-template-columns: 20px 40px 20px;
   align-items: center;
   justify-items: center;
-}
-
-.input {
-  text-align: center;
-  border: none;
-  width: 40px;
-  height: 40px;
-  padding: 0 5px;
-  justify-self: center;
-  -moz-appearance: textfield;
-  -webkit-appearance: textfield;
-  appearance: textfield;
-  font-size: 16px;
-  font-family: inherit;
-}
-
-.input::-webkit-outer-spin-button,
-.input::-webkit-inner-spin-button {
-  display: none;
 }
 
 .minus-button, .plus-button {
@@ -120,12 +101,16 @@
 }
 
 @media (max-width: 600px) {
-  .product-body {
+  .body {
     display: block;
   }
 
   .remove-button {
     justify-self: left;
+  }
+
+  .footer {
+    margin-top: 20px;
   }
 }
 

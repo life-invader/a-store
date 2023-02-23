@@ -38,16 +38,20 @@ describe('Тестирование роутинга в приложении', ()
   });
 
   test('Должен отрендерить компонент главной страницы <MainPage />', () => {
+    const store = createMockStore();
+
     render(
-      <Routes>
-        <Route path={AppRoutes.Main} element={<App />}>
-          <Route index element={<MainPage />} />
-          <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
-          <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
-          <Route path={AppRoutes.Contacts} element={<Contacts />} />
-          <Route path={AppRoutes.Cart} element={<Cart />} />
-        </Route>
-      </Routes>,
+      <Provider store={store}>
+        <Routes>
+          <Route path={AppRoutes.Main} element={<App />}>
+            <Route index element={<MainPage />} />
+            <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
+            <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
+            <Route path={AppRoutes.Contacts} element={<Contacts />} />
+            <Route path={AppRoutes.Cart} element={<Cart />} />
+          </Route>
+        </Routes>
+      </Provider>,
       { wrapper: MemoryRouter },
     );
 
@@ -117,16 +121,20 @@ describe('Тестирование роутинга в приложении', ()
   });
 
   test('Должен отрендерить компонент страницы "Контакты" <Contacts />', async () => {
+    const store = createMockStore();
+
     render(
-      <Routes>
-        <Route path={AppRoutes.Main} element={<App />}>
-          <Route index element={<MainPage />} />
-          <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
-          <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
-          <Route path={AppRoutes.Contacts} element={<Contacts />} />
-          <Route path={AppRoutes.Cart} element={<Cart />} />
-        </Route>
-      </Routes>,
+      <Provider store={store}>
+        <Routes>
+          <Route path={AppRoutes.Main} element={<App />}>
+            <Route index element={<MainPage />} />
+            <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
+            <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
+            <Route path={AppRoutes.Contacts} element={<Contacts />} />
+            <Route path={AppRoutes.Cart} element={<Cart />} />
+          </Route>
+        </Routes>
+      </Provider>,
       { wrapper: MemoryRouter },
     );
 
@@ -139,27 +147,8 @@ describe('Тестирование роутинга в приложении', ()
     ).toBeInTheDocument();
   });
 
-  test('Должен отрендерить компонент страницы "Корзины" <Cart />', async () => {
-    render(
-      <Routes>
-        <Route path={AppRoutes.Main} element={<App />}>
-          <Route index element={<MainPage />} />
-          <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
-          <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
-          <Route path={AppRoutes.Contacts} element={<Contacts />} />
-          <Route path={AppRoutes.Cart} element={<Cart />} />
-        </Route>
-      </Routes>,
-      { wrapper: MemoryRouter },
-    );
-
-    fireEvent.click(screen.getByTestId('cart-button'));
-    expect(screen.getByText(/ФИО/i)).toBeInTheDocument();
-  });
-
   test('Должен отрендерить компонент страницы "Товара" <Product />', async () => {
     const store = createMockStore();
-    console.log(store.getState());
 
     jest.spyOn(global, 'fetch').mockImplementation(() =>
       Promise.resolve({

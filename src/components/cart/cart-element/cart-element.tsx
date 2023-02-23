@@ -3,13 +3,13 @@ import { productsActions } from '../../../store/products-slice/products-slice';
 import { formatPrice } from '../../../utils/utils';
 import { AppRoutes } from '../../../constants/app-routes';
 import { Link } from 'react-router-dom';
+import { useContext } from 'react';
+import { CartPanelContext } from '../../../context/cart-panel-context';
 import type { ICartElementProps } from './type';
 import type { ICartItem } from '../../../types/types';
 import type { OptionNameType } from '../cart-list/type';
 
 import styles from './style.module.css';
-import { useContext } from 'react';
-import { CartPanelContext } from '../../../context/cart-panel-context';
 
 const { incrementCartItem, decrementCartItem, removeCartItem } = productsActions;
 const OptionName: OptionNameType = {
@@ -46,8 +46,8 @@ function CartElement({ product }: ICartElementProps) {
     <div className={styles.product}>
       <img className={styles.img} src={item.preview} alt={item.title} />
 
-      <div className={styles['product-body']}>
-        <div className={styles['product-info']}>
+      <div className={styles.body}>
+        <div>
           <h3 className={styles.title}>
             <Link className={styles.link} to={AppRoutes.Product(item.id)} onClick={onProductClick}>
               {item.title}
@@ -62,12 +62,12 @@ function CartElement({ product }: ICartElementProps) {
           </div>
         </div>
 
-        <div className={styles['product-footer']}>
-          <div className={styles['input-wrapper']}>
+        <div className={styles.footer}>
+          <div className={styles.wrapper}>
             <button className={styles['minus-button']} onClick={decrementItemQuantity(product)}>
               -
             </button>
-            <input className={styles.input} type="number" value={quantity} />
+            <p>{quantity}</p>
             <button className={styles['plus-button']} onClick={incrementItemQuantity(product)}>
               +
             </button>

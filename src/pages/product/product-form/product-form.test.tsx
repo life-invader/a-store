@@ -1,6 +1,8 @@
 import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import ProductForm from './product-form';
+import { createMockStore } from '../../../utils/test-utils';
+import { Provider } from 'react-redux';
 
 const product = {
   id: 0,
@@ -30,7 +32,13 @@ const product = {
 };
 
 test('Проверяет рендер компонента <ProductForm />', () => {
-  render(<ProductForm {...product} />);
+  const store = createMockStore();
+
+  render(
+    <Provider store={store}>
+      <ProductForm {...product} />
+    </Provider>,
+  );
 
   expect(screen.getByTestId('product-form')).toBeInTheDocument();
   expect(screen.getByText('Цвет')).toBeInTheDocument();

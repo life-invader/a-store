@@ -16,14 +16,16 @@ function CartList() {
           const { item, options } = element;
 
           return (
-            <li key={generateUniqueKey(item.id, options)}>
+            <li key={generateUniqueKey(item.id, options)} data-testid="cart-list-item">
               <CartElement product={element} />
             </li>
           );
         })}
       </ul>
 
-      <p className={styles.total}>Сумма: {formatPrice(cartTotal)} ₽</p>
+      <p className={styles.total} data-testid="cart-price">
+        Сумма: {formatPrice(cartTotal)} ₽
+      </p>
     </>
   );
 }

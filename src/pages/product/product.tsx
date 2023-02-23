@@ -48,7 +48,7 @@ function Product() {
     return null;
   }
 
-  const { title, price, images, description } = product!;
+  const { title, price, images, description } = product;
 
   return (
     <div className={`${styles.product} container`} data-testid="product-test">

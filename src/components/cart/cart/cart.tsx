@@ -21,7 +21,11 @@ function Cart() {
 
   return (
     <>
-      <button className={styles.button} type="button" onClick={handleModalOpen}>
+      <button
+        className={styles.button}
+        type="button"
+        onClick={handleModalOpen}
+        data-testid="cart-button">
         <svg
           role="img"
           stroke="#ffffff"
