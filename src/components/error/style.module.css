@@ -7,7 +7,7 @@
   padding: 30px;
 }
 
-.error__wrapper {
+.wrapper {
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -17,12 +17,12 @@
   width: 500px;
 }
 
-.error__text {
+.text {
   font-size: 30px;
   text-align: center;
 }
 
-.error__button {
+.button {
   text-align: center;
   margin-top: 20px;
   font-family: inherit;

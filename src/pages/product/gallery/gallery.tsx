@@ -2,7 +2,7 @@ import { useState } from 'react';
 import Image from '../../../components/image/image';
 import type { IGalleryProps } from './type';
 
-import './style.css';
+import styles from './style.module.css';
 
 function Gallery({ images, title }: IGalleryProps) {
   const [currImg, setCurrImg] = useState(0);
@@ -12,13 +12,13 @@ function Gallery({ images, title }: IGalleryProps) {
   };
 
   return (
-    <div className="gallery">
-      <Image className="gallery__img" src={images[currImg]} alt={title} testId="main-image" />
-      <ul className="gallery__thumbnail-list">
+    <div>
+      <Image className={styles.img} src={images[currImg]} alt={title} testId="main-image" />
+      <ul className={styles.list}>
         {images.map((item, index) => (
-          <li key={item} className="gallery__thumbnail-list-item" data-testid="gallery-thumbnail">
+          <li key={item} data-testid="gallery-thumbnail">
             <Image
-              className="gallery__thumbnail"
+              className={styles.thumbnail}
               src={item}
               alt={title}
               onClick={imgChangeHandler(index)}

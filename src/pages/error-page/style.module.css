@@ -1,4 +1,4 @@
-.not-found {
+.error {
   width: 100%;
   padding: 50px;
   display: flex;
@@ -7,23 +7,28 @@
   background-color: #95c2de;
 }
 
-.not-found__wrapper {
+.wrapper {
   max-width: 600px;
   min-height: 300px;
   margin: auto;
 }
 
-.not-found__text {
-  margin-top: 20px;
+.title {
+  text-align: center;
 }
 
-.not-found__link {
+.text {
+  margin-top: 20px;
+  text-align: center;
+}
+
+.link {
   text-decoration: none;
   color: #ffffff;
   position: relative;
 }
 
-.not-found__link:after {
+.link:after {
   content: '';
   position: absolute;
   bottom: -14px;
@@ -34,7 +39,7 @@
   transition: all 0.2s;
 }
 
-.not-found__link:hover:after {
+.link:hover:after {
   background-color: #ffffff;
   bottom: -4px;
 }

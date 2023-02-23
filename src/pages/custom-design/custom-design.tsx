@@ -11,7 +11,7 @@ import Spinner from '../../components/spinner/spinner';
 import { useSpinnerDelay } from '../../hooks/use-spinner-delay';
 import Error from '../../components/error/error';
 
-import './custom-design.css';
+import styles from './style.module.css';
 
 function CustomDesign() {
   const dispatch = useDispatch();
@@ -29,12 +29,9 @@ function CustomDesign() {
   ) : showLoader ? (
     <Spinner />
   ) : (
-    <ul className="custom-design-list">
+    <ul className={styles.list}>
       {groups.map((category) => (
-        <li
-          className="custom-design-list__item"
-          key={category.id}
-          data-testid="custom-design-group">
+        <li key={category.id} data-testid="custom-design-group">
           <CatalogList
             products={category.products}
             title={category.title}
@@ -46,13 +43,13 @@ function CustomDesign() {
   );
 
   return (
-    <section className="custom-design container">
-      <h1 className="custom-design__title">Свой дизайн</h1>
-      <p className="custom-design__text">
+    <section className={`${styles.page} container`}>
+      <h1 className={styles.title}>Свой дизайн</h1>
+      <p className={styles.text}>
         Выберите вещь, а затем — цвет, размер и стикер. Перенесём стикер на вещь как на фото
       </p>
       {data}
-      <footer className="custom-design__footer">
+      <footer className={styles.footer}>
         Посмотреть и потрогать все стикеры можно в A-Store на Технопарке. А ещё там можно добавить
         сразу несколько стикеров на одну вещь.
       </footer>

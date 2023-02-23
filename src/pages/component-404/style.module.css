@@ -1,4 +1,4 @@
-.error-page {
+.not-found {
   width: 100%;
   padding: 50px;
   display: flex;
@@ -7,28 +7,23 @@
   background-color: #95c2de;
 }
 
-.error-page__wrapper {
+.wrapper {
   max-width: 600px;
   min-height: 300px;
   margin: auto;
 }
 
-.error-page__title {
-  text-align: center;
-}
-
-.error-page__text {
+.text {
   margin-top: 20px;
-  text-align: center;
 }
 
-.error-page__link {
+.link {
   text-decoration: none;
   color: #ffffff;
   position: relative;
 }
 
-.error-page__link:after {
+.link:after {
   content: '';
   position: absolute;
   bottom: -14px;
@@ -39,7 +34,7 @@
   transition: all 0.2s;
 }
 
-.error-page__link:hover:after {
+.link:hover:after {
   background-color: #ffffff;
   bottom: -4px;
 }

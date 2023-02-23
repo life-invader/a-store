@@ -1,41 +1,13 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { ProductMock } from '../../mocks/api-product';
+import { compareOptions } from '../../utils/utils';
 import type { ICartItem, ICategory, IProduct, IProductPreview, IProductOptions } from '../../types/types';
 import type { IProductsSlice } from './type';
-
-// ======================================================================================================================
-const item: ICartItem = {
-  item: ProductMock,
-  quantity: 1,
-  itemTotal: 4899,
-  options: {
-    color: 'blue'
-  },
-};
-const preloadedCart = [item] as ICartItem[];
-
-const compareOptions = (item: ICartItem, options: IProductOptions) => {
-  if (!Object.keys(item).length) {
-    return true;
-  }
-
-  const array = Object.keys(item.options) as Array<keyof IProductOptions>;
-  for (let i = 0; i < array.length; i++) {
-    const element = array[i];
-    if (item.options[element] !== options[element]) {
-      return false;
-    }
-  }
-
-  return true;
-}
-// ======================================================================================================================
 
 const initialState: IProductsSlice = {
   currentProduct: null,
   products: [],
   categories: [],
-  cart: preloadedCart,
+  cart: [],
   isLoading: true,
   isError: false,
 };
@@ -64,12 +36,12 @@ const productsSlice = createSlice({
       payload.isError && (state.isError = payload.isError);
     },
     loadItemToCart(state, { payload }: PayloadAction<IProductOptions>) {
-      const cartItems = state.cart.filter((item) => item.item.id === state.currentProduct?.id);
-      const itemFound = cartItems.filter((item) => compareOptions(item, payload))[0];
+      const itemsWithSameId = state.cart.filter(({ item }) => item.id === state.currentProduct?.id);
+      const foundItem = itemsWithSameId.filter((item) => compareOptions(item, payload))[0];
 
-      if (itemFound) {
-        itemFound.quantity += 1;
-        itemFound.itemTotal = itemFound.quantity * itemFound.item.price;
+      if (foundItem) {
+        foundItem.quantity += 1;
+        foundItem.itemTotal = foundItem.quantity * foundItem.item.price;
       } else {
         const cartItem: ICartItem = {
           item: state.currentProduct!,
@@ -81,36 +53,36 @@ const productsSlice = createSlice({
       }
     },
     incrementCartItem(state, { payload }: PayloadAction<ICartItem>) {
-      const cartItems = state.cart.filter((item) => item.item.id === payload.item.id);
-      const itemFound = cartItems.filter((item) => compareOptions(item, payload.options))[0];
+      const itemsWithSameId = state.cart.filter((item) => item.item.id === payload.item.id);
+      const foundItem = itemsWithSameId.filter((item) => compareOptions(item, payload.options))[0];
 
-      if (!itemFound) {
+      if (!foundItem) {
         return;
       }
 
-      itemFound.quantity += 1;
-      itemFound.itemTotal = itemFound.quantity * itemFound.item.price;
+      foundItem.quantity += 1;
+      foundItem.itemTotal = foundItem.quantity * foundItem.item.price;
     },
     decrementCartItem(state, { payload }: PayloadAction<ICartItem>) {
-      const cartItems = state.cart.filter((item) => item.item.id === payload.item.id);
-      const itemFound = cartItems.filter((item) => compareOptions(item, payload.options))[0];
+      const itemsWithSameId = state.cart.filter((item) => item.item.id === payload.item.id);
+      const foundItem = itemsWithSameId.filter((item) => compareOptions(item, payload.options))[0];
 
-      if (!itemFound) {
+      if (!foundItem) {
         return;
       }
 
-      itemFound.quantity = itemFound.quantity - 1 === 0 ? 1 : itemFound.quantity - 1;
-      itemFound.itemTotal = itemFound.quantity * itemFound.item.price;
+      foundItem.quantity = foundItem.quantity - 1 === 0 ? 1 : foundItem.quantity - 1;
+      foundItem.itemTotal = foundItem.quantity * foundItem.item.price;
     },
     removeCartItem(state, { payload }: PayloadAction<ICartItem>) {
-      const cartItems = state.cart.filter((item) => item.item.id === payload.item.id);
-      const itemFound = cartItems.filter((item) => compareOptions(item, payload.options))[0];
+      const itemsWithSameId = state.cart.filter((item) => item.item.id === payload.item.id);
+      const foundItem = itemsWithSameId.filter((item) => compareOptions(item, payload.options))[0];
 
-      if (!itemFound) {
+      if (!foundItem) {
         return;
       }
 
-      state.cart = state.cart.filter((item) => item !== itemFound);
+      state.cart = state.cart.filter((item) => item !== foundItem);
     },
   },
 })

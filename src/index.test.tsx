@@ -3,7 +3,7 @@ import { render, screen, fireEvent, waitForElementToBeRemoved } from '@testing-l
 import userEvent from '@testing-library/user-event';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import App from './components/app/app';
-import { AppRoutes } from './constants/routes';
+import { AppRoutes } from './constants/app-routes';
 import MainPage from './pages/main-page/main-page';
 import MadeInAlfa from './pages/made-in-alfa/made-in-alfa';
 import CustomDesign from './pages/custom-design/custom-design';

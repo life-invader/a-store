@@ -1,4 +1,4 @@
-.custom-design {
+.page {
   padding: 40px 10px 40px;
   height: 100%;
   width: 100%;
@@ -7,33 +7,33 @@
   flex-grow: 1;
 }
 
-.custom-design-list {
+.list {
   display: flex;
   flex-direction: column;
 }
 
-.custom-design__title {
+.title {
   font-size: 110px;
   line-height: 1;
 }
 
-.custom-design__text {
+.text {
   max-width: 500px;
 }
 
-.custom-design__footer {
+.footer {
   opacity: 0.25;
   max-width: 550px;
 }
 
 @media (max-width: 992px) {
-  .custom-design__text {
+  .text {
     margin-top: 10px;
   }
 }
 
 @media (max-width: 768px) {
-  .custom-design__title {
+  .title {
     font-size: 60px;
   }
 }

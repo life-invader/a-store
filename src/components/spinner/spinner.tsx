@@ -1,10 +1,10 @@
 import { Spinner as AlfaSpinner } from '@alfalab/core-components/spinner';
-import './style.css';
+import styles from './style.module.css';
 
 function Spinner() {
   return (
-    <div className="spinner" data-testid="spinner">
-      <AlfaSpinner className="spinner__circle" visible={true} size="m" />
+    <div className={styles.spinner} data-testid="spinner">
+      <AlfaSpinner className={styles.circle} visible={true} size="m" />
     </div>
   );
 }

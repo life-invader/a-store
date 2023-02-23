@@ -1,13 +1,6 @@
 import { useEffect, useState } from 'react';
+import type { IImageProps } from './type';
 const fallbackImg = '/alfa-logo.png';
-
-interface IImageProps {
-  src: string;
-  alt?: string;
-  onClick?: () => void;
-  className?: string;
-  testId?: string;
-}
 
 function Image({ src: urlImage, alt, onClick, className, testId }: IImageProps) {
   const [src, setSrc] = useState(urlImage);

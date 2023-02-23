@@ -3,10 +3,10 @@ import { prepareSelectData, transformOptions } from '../../../utils/utils';
 import { Select } from '../select/select';
 import { useDispatch } from 'react-redux';
 import { productsActions } from '../../../store/products-slice/products-slice';
-import type { IProductOptions } from './type';
+import type { ISelectOptions } from './type';
 import type { IProduct } from '../../../types/types';
 
-import './style.css';
+import styles from './style.module.css';
 
 function ProductForm(product: IProduct) {
   const dispatch = useDispatch();
@@ -15,26 +15,24 @@ function ProductForm(product: IProduct) {
   );
   const [colors, models, sizes, stickerNumbers] = selectsData;
 
-  const [productOptions, setProductOptions] = useState<IProductOptions>({
+  const [productOptions, setProductOptions] = useState<ISelectOptions>({
     size: sizes && sizes[0],
     color: colors && colors[0],
     model: models && models[0],
     stickerNumber: stickerNumbers && stickerNumbers[0],
   });
 
-  const paramsChangeHandler = (options: Partial<IProductOptions>) => {
+  const paramsChangeHandler = (options: Partial<ISelectOptions>) => {
     setProductOptions({ ...productOptions, ...options });
   };
 
   const submitHandler = () => {
     const options = transformOptions(productOptions);
     dispatch(productsActions.loadItemToCart(options));
-    console.log(`В корзину добавлен товар: ${product.title}`);
-    console.log('Опции: ', options);
   };
 
   return (
-    <form className="product-form" data-testid="product-form">
+    <form className={styles.form} data-testid="product-form">
       {colors && (
         <Select
           options={colors}
@@ -72,7 +70,7 @@ function ProductForm(product: IProduct) {
         />
       )}
 
-      <button className="product-form__submit" type="button" onClick={submitHandler}>
+      <button className={styles.button} type="button" onClick={submitHandler}>
         В корзину
       </button>
     </form>

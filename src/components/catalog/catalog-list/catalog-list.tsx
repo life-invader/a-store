@@ -1,29 +1,23 @@
 import CatalogItem from '../catalog-item/catalog-item';
 import { Typography } from '@alfalab/core-components/typography';
-import type { IProductPreview } from '../../../types/types';
+import type { ICatalogListProps } from './type';
 
-import './catalog-list.css';
+import styles from './style.module.css';
 
-interface ICatalogList {
-  products: IProductPreview[];
-  title?: string;
-  description?: string;
-}
-
-function CatalogList({ products, description, title }: ICatalogList) {
+function CatalogList({ products, description, title }: ICatalogListProps) {
   return (
-    <div className="catalog">
+    <div className={styles.catalog}>
       {description && title && (
         <>
-          <Typography.TitleResponsive tag="h2" className="catalog__title">
+          <Typography.TitleResponsive tag="h2" className={styles.title}>
             {title}
           </Typography.TitleResponsive>
-          <p className="catalog__description">{description}</p>
+          <p className={styles.description}>{description}</p>
         </>
       )}
-      <ul className="catalog__list" data-testid="catalog-list">
+      <ul className={styles.list} data-testid="catalog-list">
         {products.map((item) => (
-          <li key={item.id} className="catalog__list-item" data-testid="catalog-item">
+          <li key={item.id} data-testid="catalog-item">
             <CatalogItem {...item} />
           </li>
         ))}

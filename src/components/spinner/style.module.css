@@ -6,7 +6,7 @@
   align-items: center;
 }
 
-.spinner__circle {
+.circle {
   width: 150px;
   height: 150px;
 }

@@ -8,21 +8,13 @@
   z-index: 1;
 }
 
-.header__link {
+.link {
   font-size: 32px;
   font-weight: 700;
   color: #ef3124;
   text-decoration: none;
   display: flex;
   align-items: center;
-}
-
-.header__menu-button {
-  font-size: 32px;
-  font-weight: 700;
-  color: #000000;
-  text-transform: uppercase;
-  align-self: center;
 }
 
 @media (max-width: 360px) {
