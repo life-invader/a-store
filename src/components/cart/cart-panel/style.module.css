@@ -1,3 +1,31 @@
+.total {
+  text-align: right;
+  margin-top: 10px;
+  font-weight: 500;
+  font-size: 18px;
+}
+
+.wrapper {
+  position: relative;
+}
+
+.wrapper::before, .wrapper::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background-color: #b8b8b8;
+}
+
+.wrapper::before {
+  top: 0;
+}
+
+.wrapper::after {
+  bottom: 0;
+}
+
 .button {
   min-height: 60px;
   background-color: #000000;
