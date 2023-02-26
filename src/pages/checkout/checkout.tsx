@@ -8,7 +8,7 @@ import { ShipmentOptions } from '../../constants/common';
 
 import styles from './style.module.css';
 
-function Cart() {
+function Checkout() {
   const isEmpty = useSelector(selectIsCartEmpty);
   const cartTotal = useSelector(selectCartTotalCost);
   const [currentShipment, setCurrentShipment] = useState(0);
@@ -25,7 +25,7 @@ function Cart() {
 
   return (
     <div className="container">
-      <section className={styles.cart}>
+      <section className={styles.cart} data-testid="checkout">
         <div className={styles['form-wrapper']}>
           <OrderForm onShipmentChange={onShipmentChange} />
         </div>
@@ -55,4 +55,4 @@ function Cart() {
   );
 }
 
-export default Cart;
+export default Checkout;

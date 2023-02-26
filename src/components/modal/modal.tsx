@@ -1,7 +1,7 @@
 import { ModalResponsive } from '@alfalab/core-components/modal/responsive';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AppRoutes } from '../../constants/app-routes';
-import Cart from '../../pages/cart/cart';
+import Checkout from '../../pages/checkout/checkout';
 
 import styles from './style.module.css';
 
@@ -27,7 +27,7 @@ function Modal() {
           title="Ваш заказ"
           className={styles.modal}></ModalResponsive.Header>
         <ModalResponsive.Content>
-          <Cart />
+          <Checkout />
         </ModalResponsive.Content>
       </ModalResponsive>
     </>

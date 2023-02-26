@@ -2,18 +2,9 @@ import { useEffect } from 'react';
 import { PaymentOptions, ShipmentOptions } from '../../../constants/common';
 import { formatPrice } from '../../../utils/utils';
 import { SubmitHandler, useForm } from 'react-hook-form';
+import type { IFormValues, IOrderFormProps } from './type';
 
 import styles from './style.module.css';
-
-interface IFormValues {
-  name: string;
-  email: string;
-  number: string;
-  address: string;
-  shipment: string;
-  policy: boolean;
-  payment: string;
-}
 
 const initValues = {
   defaultValues: {
@@ -26,10 +17,6 @@ const initValues = {
     payment: '',
   },
 };
-
-interface IOrderFormProps {
-  onShipmentChange: (index: number) => void;
-}
 
 function OrderForm({ onShipmentChange }: IOrderFormProps) {
   const {
