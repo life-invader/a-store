@@ -1,35 +1,116 @@
+import { useEffect } from 'react';
 import { PaymentOptions, ShipmentOptions } from '../../../constants/common';
 import { formatPrice } from '../../../utils/utils';
+import { SubmitHandler, useForm } from 'react-hook-form';
+
 import styles from './style.module.css';
 
-function OrderForm() {
+interface IFormValues {
+  name: string;
+  email: string;
+  number: string;
+  address: string;
+  shipment: string;
+  policy: boolean;
+  payment: string;
+}
+
+const initValues = {
+  defaultValues: {
+    name: '',
+    email: '',
+    number: '',
+    address: '',
+    shipment: ShipmentOptions[0].value,
+    policy: false,
+    payment: '',
+  },
+};
+
+interface IOrderFormProps {
+  onShipmentChange: (index: number) => void;
+}
+
+function OrderForm({ onShipmentChange }: IOrderFormProps) {
+  const {
+    watch,
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm<IFormValues>(initValues);
+
+  const submitForm: SubmitHandler<IFormValues> = (data) => {
+    console.log(data);
+  };
+
+  const shipmentOption = watch('shipment');
+  useEffect(() => {
+    const index = ShipmentOptions.findIndex((item) => {
+      return shipmentOption === item.value;
+    });
+    onShipmentChange(index);
+  }, [onShipmentChange, shipmentOption]);
+
   return (
-    <form className={styles.form}>
+    <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
       <ul className={styles.list}>
         <li>
           <label className={styles.label} htmlFor="name">
             ФИО
           </label>
           <input
-            className={styles.input}
+            className={`${styles.input} ${errors.name ? styles.invalid : ''}`}
             type="text"
             id="name"
             placeholder="Фамилия Имя Отчество"
+            {...register('name', { required: true })}
           />
+          {errors.name && <p className={styles.error}>Обязательное поле</p>}
         </li>
 
         <li>
           <label className={styles.label} htmlFor="email">
             e-mail
           </label>
-          <input className={styles.input} type="email" id="email" placeholder="example@site.ru" />
+          <input
+            className={`${styles.input} ${errors.email ? styles.invalid : ''}`}
+            type="text"
+            id="email"
+            placeholder="example@site.ru"
+            {...register('email', {
+              required: true,
+              pattern: {
+                message: 'Неверный формат',
+                value:
+                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+              },
+            })}
+          />
+          {errors.email && (
+            <p className={styles.error}>{errors.email.message || 'Обязательное поле'}</p>
+          )}
         </li>
 
         <li>
           <label className={styles.label} htmlFor="number">
             Телефон
           </label>
-          <input className={styles.input} type="tel" id="number" placeholder="+7 000 000 00 00" />
+          <input
+            className={`${styles.input} ${errors.number ? styles.invalid : ''}`}
+            type="tel"
+            id="number"
+            placeholder="+7 000 000 00 00"
+            {...register('number', {
+              required: true,
+              pattern: {
+                message: 'Неверный формат',
+                value: /^[\d\+][\d\(\)\ -]{4,14}\d$/,
+              },
+            })}
+          />
+          {errors.number && (
+            <p className={styles.error}>{errors.number.message || 'Обязательное поле'}</p>
+          )}
         </li>
 
         <li>
@@ -41,23 +122,27 @@ function OrderForm() {
             type="text"
             id="address"
             placeholder="Индекс, город, улица, дом, квартира"
+            {...register('address')}
           />
         </li>
 
         <li>
           <h3 className={styles['sublist-title']}>Доставка</h3>
           <ul className={styles.sublist}>
-            {ShipmentOptions.map(({ id, cost, option, title }) => {
+            {ShipmentOptions.map(({ id, cost, value, title }) => {
               const shipmentCost = cost ? ` — ${formatPrice(cost)} ₽` : '';
 
               return (
                 <li key={id}>
-                  <label className={styles['radio-label']} htmlFor={option}>
+                  <label className={styles['radio-label']} htmlFor={value}>
                     <input
                       className={`${styles['radio-input']} visually-hidden`}
                       type="radio"
-                      name="shipment"
-                      id={option}
+                      id={value}
+                      value={value}
+                      {...register('shipment', {
+                        required: true,
+                      })}
                     />
                     <span>
                       {title}
@@ -68,6 +153,7 @@ function OrderForm() {
                 </li>
               );
             })}
+            {errors.shipment && <p className={styles.error}>Обязательное поле</p>}
           </ul>
         </li>
 
@@ -76,7 +162,7 @@ function OrderForm() {
             Промокод
           </label>
           <p className={styles['input-wrapper']}>
-            <input className={styles.input} type="text" id="promo" />
+            <input className={styles['input-promo']} type="text" id="promo" />
             <button className={styles['promo-button']} type="button">
               Поверить
             </button>
@@ -84,15 +170,22 @@ function OrderForm() {
         </li>
 
         <li>
-          <label className={styles['checkbox-label']} htmlFor="policy">
+          <label
+            className={`${styles['checkbox-label']} ${errors.policy ? styles.invalid : ''}`}
+            htmlFor="policy">
             <input
               className={`${styles['checkbox-input']} visually-hidden`}
               type="checkbox"
-              name="policy"
               id="policy"
+              {...register('policy', { required: true })}
             />
             <span>Согласен с политикой конфиденциальности и обработки персональных данных</span>
             <span className={styles['custom-checkbox']} />
+            {errors.policy && (
+              <p className={styles.error}>
+                Вы должны быть согласны с условиями обработки личных данных
+              </p>
+            )}
           </label>
         </li>
 
@@ -112,16 +205,17 @@ function OrderForm() {
 
         <li>
           <h3 className={styles['sublist-title']}>Способ оплаты</h3>
-          <ul className={styles.sublist}>
-            {PaymentOptions.map(({ id, title, option }) => {
+          <ul className={`${styles.sublist} ${errors.payment ? styles.invalid : ''}`}>
+            {PaymentOptions.map(({ id, title, value }) => {
               return (
                 <li key={id}>
-                  <label className={styles['radio-label']} htmlFor={option}>
+                  <label className={styles['radio-label']} htmlFor={value}>
                     <input
                       className={`${styles['radio-input']} visually-hidden`}
                       type="radio"
-                      name="payment"
-                      id={option}
+                      id={value}
+                      value={value}
+                      {...register('payment', { required: true })}
                     />
                     <span>{title}</span>
                     <span className={styles['custom-radio']} />
@@ -130,6 +224,7 @@ function OrderForm() {
               );
             })}
           </ul>
+          {errors.payment && <p className={styles.error}>Выберите способ оплаты</p>}
         </li>
       </ul>
 

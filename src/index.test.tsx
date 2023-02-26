@@ -8,7 +8,6 @@ import MainPage from './pages/main-page/main-page';
 import MadeInAlfa from './pages/made-in-alfa/made-in-alfa';
 import CustomDesign from './pages/custom-design/custom-design';
 import Contacts from './pages/contacts/contacts';
-import Cart from './pages/cart/cart';
 import Product from './pages/product/product';
 import { createMockStore } from './utils/test-utils';
 import { Provider } from 'react-redux';
@@ -48,7 +47,6 @@ describe('Тестирование роутинга в приложении', ()
             <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
             <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
             <Route path={AppRoutes.Contacts} element={<Contacts />} />
-            <Route path={AppRoutes.Cart} element={<Cart />} />
           </Route>
         </Routes>
       </Provider>,
@@ -75,7 +73,6 @@ describe('Тестирование роутинга в приложении', ()
             <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
             <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
             <Route path={AppRoutes.Contacts} element={<Contacts />} />
-            <Route path={AppRoutes.Cart} element={<Cart />} />
           </Route>
         </Routes>
       </Provider>,
@@ -105,7 +102,6 @@ describe('Тестирование роутинга в приложении', ()
             <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
             <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
             <Route path={AppRoutes.Contacts} element={<Contacts />} />
-            <Route path={AppRoutes.Cart} element={<Cart />} />
           </Route>
         </Routes>
       </Provider>,
@@ -131,7 +127,6 @@ describe('Тестирование роутинга в приложении', ()
             <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
             <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
             <Route path={AppRoutes.Contacts} element={<Contacts />} />
-            <Route path={AppRoutes.Cart} element={<Cart />} />
           </Route>
         </Routes>
       </Provider>,

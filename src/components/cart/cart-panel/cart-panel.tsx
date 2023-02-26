@@ -10,7 +10,7 @@ function CartPanel({ isOpen, onClose, total }: ICartPanelProps) {
   const navigate = useNavigate();
 
   const nextClickHandler = () => {
-    navigate(AppRoutes.Cart);
+    navigate(AppRoutes.Checkout, { state: { safe: true } });
     onClose();
   };
 
