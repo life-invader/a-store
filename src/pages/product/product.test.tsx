@@ -1,13 +1,12 @@
-import { render, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
+import { render, screen } from '@testing-library/react';
 import { createMemoryRouter, RouterProvider } from 'react-router-dom';
 import Product from './product';
-import { ProductsAllTogether } from '../../data';
-import type { IProduct } from '../../types/types';
+import { Provider } from 'react-redux';
+import { createMockStore } from '../../utils/test-utils';
+import { ProductMock } from '../../mocks/api-product';
 
-const productId = 1;
-const product = ProductsAllTogether.find((item) => item.id === productId) as IProduct;
-
+const productId = ProductMock.id;
 const routes = [
   {
     path: '/product/:id',
@@ -20,8 +19,52 @@ const router = createMemoryRouter(routes, {
 });
 
 describe('Проверяет рендер компонента <Product />', () => {
-  test('Проверяет рендер компонента <Product />', () => {
-    render(<RouterProvider router={router} />);
-    expect(screen.getByText(product.title)).toBeInTheDocument();
+  afterEach(() => {
+    jest.restoreAllMocks();
+  });
+
+  test('Проверяет рендер компонента <Product />', async () => {
+    const store = createMockStore();
+
+    jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(ProductMock),
+      } as Response),
+    );
+    jest.spyOn(store, 'dispatch');
+
+    render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>,
+    );
+
+    // Ждем пока пропадет спиннер
+    await new Promise((resolve) => {
+      setTimeout(() => resolve(''), 1000);
+    });
+
+    const title = await screen.findByText(ProductMock.title);
+    expect(title).toBeInTheDocument();
+    expect(store.dispatch).toHaveBeenCalled();
+  });
+
+  test('Проверяет обработку ошибок в компоненте <Product />', () => {
+    const store = createMockStore();
+
+    jest.spyOn(global, 'fetch').mockImplementation(() => {
+      throw new Error();
+    });
+    jest.spyOn(store, 'dispatch');
+
+    render(
+      <Provider store={store}>
+        <RouterProvider router={router} />
+      </Provider>,
+    );
+
+    const title = screen.getByText('Что-то пошло не так(((');
+    expect(title).toBeInTheDocument();
+    expect(store.dispatch).toHaveBeenCalled();
   });
 });

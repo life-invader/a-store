@@ -2,10 +2,10 @@ import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
 import CatalogItem from './catalog-item';
-import { AlfaMadeProducts } from '../../../mocks/api-made-in-alfa';
+import { AlfaMadeProductsMock } from '../../../mocks/api-made-in-alfa';
 
 const props = {
-  product: AlfaMadeProducts[0],
+  product: AlfaMadeProductsMock[0],
   subtitle: 'subtitle',
 };
 

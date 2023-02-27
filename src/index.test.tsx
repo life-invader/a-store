@@ -1,7 +1,7 @@
-/* eslint-disable testing-library/no-debugging-utils */
-import { render, screen, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
-import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
+import { render, screen, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
+import userEvent from '@testing-library/user-event';
+import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import App from './components/app/app';
 import { AppRoutes } from './constants/routes';
 import MainPage from './pages/main-page/main-page';
@@ -10,6 +10,10 @@ import CustomDesign from './pages/custom-design/custom-design';
 import Contacts from './pages/contacts/contacts';
 import Cart from './pages/cart/cart';
 import Product from './pages/product/product';
+import { createMockStore } from './utils/test-utils';
+import { Provider } from 'react-redux';
+import { CustomDesignProductsMock } from './mocks/api-your-design';
+import { AlfaMadeProductsMock } from './mocks/api-made-in-alfa';
 
 describe('Тестирование роутинга в приложении', () => {
   beforeAll(() => {
@@ -27,6 +31,10 @@ describe('Тестирование роутинга в приложении', ()
           dispatchEvent: jest.fn(),
         };
       };
+  });
+
+  afterEach(() => {
+    jest.restoreAllMocks();
   });
 
   test('Должен отрендерить компонент главной страницы <MainPage />', () => {
@@ -47,16 +55,26 @@ describe('Тестирование роутинга в приложении', ()
   });
 
   test('Должен отрендерить компонент страницы "Сделано в Альфе" <MadeInAlfa />', () => {
+    const store = createMockStore();
+
+    jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(AlfaMadeProductsMock),
+      } as Response),
+    );
+
     render(
-      <Routes>
-        <Route path={AppRoutes.Main} element={<App />}>
-          <Route index element={<MainPage />} />
-          <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
-          <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
-          <Route path={AppRoutes.Contacts} element={<Contacts />} />
-          <Route path={AppRoutes.Cart} element={<Cart />} />
-        </Route>
-      </Routes>,
+      <Provider store={store}>
+        <Routes>
+          <Route path={AppRoutes.Main} element={<App />}>
+            <Route index element={<MainPage />} />
+            <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
+            <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
+            <Route path={AppRoutes.Contacts} element={<Contacts />} />
+            <Route path={AppRoutes.Cart} element={<Cart />} />
+          </Route>
+        </Routes>
+      </Provider>,
       { wrapper: MemoryRouter },
     );
 
@@ -67,16 +85,26 @@ describe('Тестирование роутинга в приложении', ()
   });
 
   test('Должен отрендерить компонент страницы "Свой дизайн" <CustomDesign />', () => {
+    const store = createMockStore();
+
+    jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(CustomDesignProductsMock),
+      } as Response),
+    );
+
     render(
-      <Routes>
-        <Route path={AppRoutes.Main} element={<App />}>
-          <Route index element={<MainPage />} />
-          <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
-          <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
-          <Route path={AppRoutes.Contacts} element={<Contacts />} />
-          <Route path={AppRoutes.Cart} element={<Cart />} />
-        </Route>
-      </Routes>,
+      <Provider store={store}>
+        <Routes>
+          <Route path={AppRoutes.Main} element={<App />}>
+            <Route index element={<MainPage />} />
+            <Route path={AppRoutes.MadeInAlfa} element={<MadeInAlfa />} />
+            <Route path={AppRoutes.CustomDesign} element={<CustomDesign />} />
+            <Route path={AppRoutes.Contacts} element={<Contacts />} />
+            <Route path={AppRoutes.Cart} element={<Cart />} />
+          </Route>
+        </Routes>
+      </Provider>,
       { wrapper: MemoryRouter },
     );
 
@@ -130,18 +158,35 @@ describe('Тестирование роутинга в приложении', ()
   });
 
   test('Должен отрендерить компонент страницы "Товара" <Product />', async () => {
+    const store = createMockStore();
+    console.log(store.getState());
+
+    jest.spyOn(global, 'fetch').mockImplementation(() =>
+      Promise.resolve({
+        json: () => Promise.resolve(AlfaMadeProductsMock),
+      } as Response),
+    );
+
     render(
-      <Routes>
-        <Route path={AppRoutes.Main} element={<App />}>
-          <Route index element={<MadeInAlfa />} />
-          <Route path={AppRoutes.Product()} element={<Product />} />
-        </Route>
-      </Routes>,
+      <Provider store={store}>
+        <Routes>
+          <Route path={AppRoutes.Main} element={<App />}>
+            <Route index element={<MadeInAlfa />} />
+            <Route path={AppRoutes.Product()} element={<Product />} />
+          </Route>
+        </Routes>
+      </Provider>,
       { wrapper: MemoryRouter },
     );
 
-    const productCards = screen.getAllByTestId('product-card-test');
-    fireEvent.click(productCards[0]);
+    // Ждем пока пропадет спиннер
+    await new Promise((resolve) => {
+      setTimeout(() => resolve(''), 1000);
+    });
+
+    const productCards = await screen.findAllByTestId('product-card-test');
+    userEvent.click(productCards[0]);
+    await waitForElementToBeRemoved(productCards[0]);
     expect(screen.getByTestId('product-test')).toBeInTheDocument();
   });
 });
