@@ -1,6 +1,6 @@
 import type { IProduct } from "../types/types";
 
-export const MockProducts: IProduct[] = [
+export const AlfaMadeProducts: IProduct[] = [
   {
     "id": 0,
     "preview": "http://qa-games.ru/astore/public/images/15586005.jpeg",

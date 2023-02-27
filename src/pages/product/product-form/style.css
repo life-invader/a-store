@@ -1,0 +1,20 @@
+.product-form {
+  padding: 30px 0;
+  max-width: 300px;
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
+}
+
+.product-form__submit {
+  color: #ffffff;
+  background-color: #ef3124;
+  border: none;
+  padding: 10px 20px;
+  align-self: start;
+  display: flex;
+  border-radius: 50px;
+  font-family: inherit;
+  font-size: 16px;
+  cursor: pointer;
+}
