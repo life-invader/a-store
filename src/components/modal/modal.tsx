@@ -20,7 +20,12 @@ function Modal() {
 
   return (
     <>
-      <ModalResponsive open={open} onClose={handleClose} size="fullscreen" hasCloser={true}>
+      <ModalResponsive
+        open={open}
+        onClose={handleClose}
+        size="fullscreen"
+        hasCloser={true}
+        keepMounted>
         <ModalResponsive.Header
           hasCloser={true}
           sticky={true}
