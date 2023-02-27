@@ -1,3 +1,4 @@
+/* eslint-disable testing-library/no-debugging-utils */
 import { render, screen, fireEvent, waitForElementToBeRemoved } from '@testing-library/react';
 import { MemoryRouter, Route, Routes } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
@@ -8,6 +9,7 @@ import MadeInAlfa from './pages/made-in-alfa/made-in-alfa';
 import CustomDesign from './pages/custom-design/custom-design';
 import Contacts from './pages/contacts/contacts';
 import Cart from './pages/cart/cart';
+import Product from './pages/product/product';
 
 describe('Тестирование роутинга в приложении', () => {
   beforeAll(() => {
@@ -125,5 +127,21 @@ describe('Тестирование роутинга в приложении', ()
 
     fireEvent.click(screen.getByTestId('cart-button'));
     expect(screen.getByText(/ФИО/i)).toBeInTheDocument();
+  });
+
+  test('Должен отрендерить компонент страницы "Товара" <Product />', async () => {
+    render(
+      <Routes>
+        <Route path={AppRoutes.Main} element={<App />}>
+          <Route index element={<MadeInAlfa />} />
+          <Route path={AppRoutes.Product()} element={<Product />} />
+        </Route>
+      </Routes>,
+      { wrapper: MemoryRouter },
+    );
+
+    const productCards = screen.getAllByTestId('product-card-test');
+    fireEvent.click(productCards[0]);
+    expect(screen.getByTestId('product-test')).toBeInTheDocument();
   });
 });

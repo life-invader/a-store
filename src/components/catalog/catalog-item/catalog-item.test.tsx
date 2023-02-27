@@ -1,13 +1,30 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
+import { MockProducts } from '../../../mocks/mocks';
 import CatalogItem from './catalog-item';
-import { products } from '../../../data';
 
-test('Проверяет рендер компонента <CatalogItem />', () => {
-  const product = products[0];
-  render(<CatalogItem {...product} />, { wrapper: MemoryRouter });
+const props = {
+  product: MockProducts[0],
+  subtitle: 'subtitle',
+};
 
-  const title = screen.getByText(product.title);
-  expect(title).toBeInTheDocument();
+describe('Проверяет рендер компонента <CatalogItem />', () => {
+  test('Проверяет рендер компонента <CatalogItem /> без пропса subtitle', () => {
+    render(<CatalogItem {...props.product} />, { wrapper: MemoryRouter });
+
+    const title = screen.getByText(props.product.title);
+    const subtitle = screen.queryByTestId('subtitle-test');
+    expect(title).toBeInTheDocument();
+    expect(subtitle).toBeNull();
+  });
+
+  test('Проверяет рендер компонента <CatalogItem />', () => {
+    render(<CatalogItem {...props.product} subtitle={'subtitle'} />, { wrapper: MemoryRouter });
+
+    const title = screen.getByText(props.product.title);
+    const subtitle = screen.queryByTestId('subtitle-test');
+    expect(title).toBeInTheDocument();
+    expect(subtitle).toBeInTheDocument();
+  });
 });

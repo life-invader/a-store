@@ -1,14 +1,39 @@
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
-import { products } from '../../../data';
 import CatalogList from './catalog-list';
+import { MockProducts } from '../../../mocks/mocks';
 
-test('Проверяет рендер компонента <CatalogList />', () => {
-  render(<CatalogList />, { wrapper: MemoryRouter });
+const props = {
+  products: MockProducts,
+  title: 'title',
+  description: 'description',
+};
 
-  const list = screen.getByTestId('catalog-list');
-  expect(list).toBeInTheDocument();
-  const renderedProducts = screen.getAllByTestId('catalog-item');
-  expect(renderedProducts.length).toBe(products.length);
+describe('Проверяет рендер компонента <CatalogList />', () => {
+  test('Проверяет рендер компонента <CatalogList />', () => {
+    render(<CatalogList {...props} />, { wrapper: MemoryRouter });
+
+    const list = screen.getByTestId('catalog-list');
+    const renderedProducts = screen.getAllByTestId('catalog-item');
+    const title = screen.getByRole('heading');
+    const description = screen.getByText(props.description);
+    expect(list).toBeInTheDocument();
+    expect(renderedProducts.length).toBe(props.products.length);
+    expect(title).toBeInTheDocument();
+    expect(description).toBeInTheDocument();
+  });
+
+  test('Проверяет рендер компонента <CatalogList /> без пропсов title и description', () => {
+    render(<CatalogList products={props.products} />, { wrapper: MemoryRouter });
+
+    const list = screen.getByTestId('catalog-list');
+    const renderedProducts = screen.getAllByTestId('catalog-item');
+    const title = screen.queryByRole('heading');
+    const description = screen.queryByText(props.description);
+    expect(list).toBeInTheDocument();
+    expect(renderedProducts.length).toBe(props.products.length);
+    expect(title).toBeNull();
+    expect(description).toBeNull();
+  });
 });

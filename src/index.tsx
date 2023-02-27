@@ -8,6 +8,7 @@ import ErrorPage from './pages/error-page/error-page';
 import MadeInAlfa from './pages/made-in-alfa/made-in-alfa';
 import MainPage from './pages/main-page/main-page';
 import Cart from './pages/cart/cart';
+import Product from './pages/product/product';
 import { AppRoutes } from './constants/routes';
 
 import './index.css';
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
       {
         path: AppRoutes.CustomDesign,
         element: <CustomDesign />,
+      },
+      {
+        path: AppRoutes.Product(),
+        element: <Product />,
       },
       {
         path: AppRoutes.Contacts,
