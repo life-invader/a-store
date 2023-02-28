@@ -10,8 +10,9 @@ import MainPage from './pages/main-page/main-page';
 import Product from './pages/product/product';
 import { Provider } from 'react-redux';
 import { AppRoutes } from './constants/app-routes';
-import { store } from './store/store';
+import { persistor, store } from './store/store';
 import ErrorBoundary from './components/error-boundary/error-boundary';
+import { PersistGate } from 'redux-persist/integration/react';
 
 import './index.css';
 
@@ -53,7 +54,9 @@ const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <RouterProvider router={router} />
+      <PersistGate loading={false} persistor={persistor}>
+        <RouterProvider router={router} />
+      </PersistGate>
     </Provider>
   </React.StrictMode>,
 );
