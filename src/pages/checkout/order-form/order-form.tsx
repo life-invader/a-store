@@ -3,20 +3,8 @@ import { PaymentOptions, ShipmentOptions } from '../../../constants/common';
 import { formatPrice } from '../../../utils/utils';
 import { SubmitHandler, useForm } from 'react-hook-form';
 import type { IFormValues, IOrderFormProps } from './type';
-
 import styles from './style.module.css';
-
-const initValues = {
-  defaultValues: {
-    name: '',
-    email: '',
-    number: '',
-    address: '',
-    shipment: ShipmentOptions[0].value,
-    policy: false,
-    payment: '',
-  },
-};
+import { OrderInitValues } from './validation';
 
 function OrderForm({ onShipmentChange }: IOrderFormProps) {
   const {
@@ -24,7 +12,7 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
     register,
     handleSubmit,
     formState: { errors },
-  } = useForm<IFormValues>(initValues);
+  } = useForm<IFormValues>(OrderInitValues);
 
   const submitForm: SubmitHandler<IFormValues> = (data) => {
     console.log(data);
@@ -50,9 +38,9 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
             type="text"
             id="name"
             placeholder="Фамилия Имя Отчество"
-            {...register('name', { required: true })}
+            {...register('name')}
           />
-          {errors.name && <p className={styles.error}>Обязательное поле</p>}
+          {errors.name && <p className={styles.error}>{errors.name.message}</p>}
         </li>
 
         <li>
@@ -64,18 +52,9 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
             type="text"
             id="email"
             placeholder="example@site.ru"
-            {...register('email', {
-              required: true,
-              pattern: {
-                message: 'Неверный формат',
-                value:
-                  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
-              },
-            })}
+            {...register('email')}
           />
-          {errors.email && (
-            <p className={styles.error}>{errors.email.message || 'Обязательное поле'}</p>
-          )}
+          {errors.email && <p className={styles.error}>{errors.email.message}</p>}
         </li>
 
         <li>
@@ -87,13 +66,7 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
             type="tel"
             id="number"
             placeholder="+7 000 000 00 00"
-            {...register('number', {
-              required: true,
-              pattern: {
-                message: 'Неверный формат',
-                value: /^[\d\+][\d\(\)\ -]{4,14}\d$/,
-              },
-            })}
+            {...register('number')}
           />
           {errors.number && (
             <p className={styles.error}>{errors.number.message || 'Обязательное поле'}</p>
@@ -127,9 +100,7 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
                       type="radio"
                       id={value}
                       value={value}
-                      {...register('shipment', {
-                        required: true,
-                      })}
+                      {...register('shipment')}
                     />
                     <span>
                       {title}
@@ -164,15 +135,11 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
               className={`${styles['checkbox-input']} visually-hidden`}
               type="checkbox"
               id="policy"
-              {...register('policy', { required: true })}
+              {...register('policy')}
             />
             <span>Согласен с политикой конфиденциальности и обработки персональных данных</span>
             <span className={styles['custom-checkbox']} />
-            {errors.policy && (
-              <p className={styles.error}>
-                Вы должны быть согласны с условиями обработки личных данных
-              </p>
-            )}
+            {errors.policy && <p className={styles.error}>{errors.policy.message}</p>}
           </label>
         </li>
 
@@ -202,7 +169,7 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
                       type="radio"
                       id={value}
                       value={value}
-                      {...register('payment', { required: true })}
+                      {...register('payment')}
                     />
                     <span>{title}</span>
                     <span className={styles['custom-radio']} />

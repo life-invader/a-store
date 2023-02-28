@@ -20,6 +20,9 @@ function Checkout() {
   const total = formatPrice(cartTotal + ShipmentOptions[currentShipment].cost);
 
   const onShipmentChange = (index: number) => {
+    if (index < 0) {
+      return;
+    }
     setCurrentShipment(index);
   };
 
