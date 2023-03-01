@@ -5,6 +5,7 @@ import { AppRoutes } from '../../../constants/app-routes';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartPanelContext } from '../../../context/cart-panel-context';
+import Image from '../../image/image';
 import type { ICartElementProps } from './type';
 import type { ICartItem } from '../../../types/types';
 import type { OptionNameType } from '../cart-list/type';
@@ -44,7 +45,7 @@ function CartElement({ product }: ICartElementProps) {
 
   return (
     <div className={styles.product}>
-      <img className={styles.img} src={item.preview} alt={item.title} />
+      <Image className={styles.img} src={item.preview} alt={item.title} />
 
       <div className={styles.body}>
         <div>
