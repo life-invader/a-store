@@ -1,0 +1,10 @@
+.button {
+  font-size: 24px;
+  text-transform: uppercase;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}

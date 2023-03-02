@@ -1,15 +1,10 @@
 import { Link } from 'react-router-dom';
-import './side-menu-element.css';
-
-interface ISideMenuElementProps {
-  href: string;
-  title: string;
-  onClick: () => void;
-}
+import type { ISideMenuElementProps } from './type';
+import styles from './style.module.css';
 
 function SideMenuElement({ href, title, onClick }: ISideMenuElementProps) {
   return (
-    <Link className="menu-link" to={href} onClick={onClick}>
+    <Link className={styles.link} to={href} onClick={onClick}>
       {title}
     </Link>
   );

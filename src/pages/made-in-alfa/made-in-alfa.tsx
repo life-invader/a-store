@@ -12,7 +12,7 @@ import Spinner from '../../components/spinner/spinner';
 import { useSpinnerDelay } from '../../hooks/use-spinner-delay';
 import Error from '../../components/error/error';
 
-import './made-in-alfa.css';
+import styles from './style.module.css';
 
 function MadeInAlfa() {
   const dispatch = useDispatch();
@@ -28,11 +28,11 @@ function MadeInAlfa() {
   const data = isError ? <Error /> : showLoader ? <Spinner /> : <CatalogList products={products} />;
 
   return (
-    <section className="alfa-made container">
-      <Typography.TitleResponsive tag="h1" className="alfa-made__title">
+    <section className={`${styles.page} container`}>
+      <Typography.TitleResponsive tag="h1" className={styles.title}>
         Сделано в Альфе
       </Typography.TitleResponsive>
-      <p className="alfa-made__text">Хотим каждую из этих вещей! Себе, родным и друзьям</p>
+      <p className={styles.text}>Хотим каждую из этих вещей! Себе, родным и друзьям</p>
       {data}
     </section>
   );

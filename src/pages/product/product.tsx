@@ -14,7 +14,7 @@ import { useSpinnerDelay } from '../../hooks/use-spinner-delay';
 import Spinner from '../../components/spinner/spinner';
 import Error from '../../components/error/error';
 
-import './product.css';
+import styles from './style.module.css';
 
 function Product() {
   const { id: productId } = useParams();
@@ -30,7 +30,7 @@ function Product() {
 
   if (isError) {
     return (
-      <div className="product container" data-testid="product-test">
+      <div className={`${styles.product} container`} data-testid="product-test">
         <Error />
       </div>
     );
@@ -38,7 +38,7 @@ function Product() {
 
   if (showLoader) {
     return (
-      <div className="product container" data-testid="product-test">
+      <div className={`${styles.product} container`} data-testid="product-test">
         <Spinner />
       </div>
     );
@@ -48,17 +48,17 @@ function Product() {
     return null;
   }
 
-  const { title, price, images, description } = product!;
+  const { title, price, images, description } = product;
 
   return (
-    <div className="product container" data-testid="product-test">
-      <div className="product__wrapper">
+    <div className={`${styles.product} container`} data-testid="product-test">
+      <div className={styles.wrapper}>
         <Gallery images={images} title={title} />
-        <div className="product__info">
-          <p className="product__title">{title}</p>
-          <p className="product__price">{formatPrice(price)} ₽</p>
+        <div>
+          <p>{title}</p>
+          <p className={styles.price}>{formatPrice(price)} ₽</p>
           <ProductForm {...product} />
-          <p className="product__description">{description}</p>
+          <p className={styles.description}>{description}</p>
         </div>
       </div>
     </div>
