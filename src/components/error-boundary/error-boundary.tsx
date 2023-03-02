@@ -1,9 +1,6 @@
-import { Component, ReactNode } from 'react';
+import { Component } from 'react';
 import ErrorPage from '../../pages/error-page/error-page';
-
-interface IErrorBoundaryProps {
-  children: ReactNode;
-}
+import type { IErrorBoundaryProps } from './type';
 
 class ErrorBoundary extends Component<IErrorBoundaryProps> {
   state = {

@@ -1,16 +1,11 @@
 import { Link } from 'react-router-dom';
-import './promo-block.css';
+import type { IPromoBlockProps } from './type';
+import styles from './style.module.css';
 
-interface IPromoBlock {
-  title: string;
-  imgSrc: string;
-  pageLink: string;
-}
-
-function PromoBlock({ title, imgSrc, pageLink }: IPromoBlock) {
+function PromoBlock({ title, imgSrc, pageLink }: IPromoBlockProps) {
   return (
-    <Link className="promo" to={pageLink} style={{ backgroundImage: `url(${imgSrc})` }}>
-      <h2 className="promo__title">{title}</h2>
+    <Link className={styles.promo} to={pageLink} style={{ backgroundImage: `url(${imgSrc})` }}>
+      <h2 className={styles.title}>{title}</h2>
     </Link>
   );
 }

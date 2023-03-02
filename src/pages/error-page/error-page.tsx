@@ -1,6 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom';
-import { AppRoutes } from '../../constants/routes';
-import './style.css';
+import { AppRoutes } from '../../constants/app-routes';
+import styles from './style.module.css';
 
 function ErrorPage() {
   const navigate = useNavigate();
@@ -11,12 +11,12 @@ function ErrorPage() {
   };
 
   return (
-    <section className="error-page">
-      <div className="error-page__wrapper">
-        <h1 className="error-page__title">Все сломалось</h1>
-        <p className="error-page__text">
+    <section className={styles.error}>
+      <div className={styles.wrapper}>
+        <h1 className={styles.title}>Все сломалось</h1>
+        <p className={styles.text}>
           Давай перейдем на{' '}
-          <Link className="error-page__link" to={AppRoutes.Main} onClick={linkClickHandler}>
+          <Link className={styles.link} to={AppRoutes.Main} onClick={linkClickHandler}>
             главную
           </Link>{' '}
           и начнем с начала

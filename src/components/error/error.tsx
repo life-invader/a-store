@@ -1,4 +1,4 @@
-import './style.css';
+import styles from './style.module.css';
 
 function Error() {
   const onButtonClick = () => {
@@ -6,10 +6,10 @@ function Error() {
   };
 
   return (
-    <div className="error">
-      <div className="error__wrapper">
-        <p className="error__text">Что-то пошло не так(((</p>
-        <button className="error__button" onClick={onButtonClick}>
+    <div className={styles.error}>
+      <div className={styles.wrapper}>
+        <p className={styles.text}>Что-то пошло не так(((</p>
+        <button className={styles.button} onClick={onButtonClick}>
           Попробовать еще раз
         </button>
       </div>

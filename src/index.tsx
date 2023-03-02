@@ -10,7 +10,7 @@ import MainPage from './pages/main-page/main-page';
 import Cart from './pages/cart/cart';
 import Product from './pages/product/product';
 import { Provider } from 'react-redux';
-import { AppRoutes } from './constants/routes';
+import { AppRoutes } from './constants/app-routes';
 import { store } from './store/store';
 import ErrorBoundary from './components/error-boundary/error-boundary';
 
