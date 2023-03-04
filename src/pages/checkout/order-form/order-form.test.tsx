@@ -1,9 +1,17 @@
 import '@testing-library/jest-dom/extend-expect';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { Provider } from 'react-redux';
+import { createMockStore } from '../../../utils/test-utils';
 import OrderForm from './order-form';
 
 test('Проверяет работу компонента <OrderForm />', () => {
-  render(<OrderForm onShipmentChange={jest.fn()} onClose={jest.fn()} />);
+  const store = createMockStore();
+
+  render(
+    <Provider store={store}>
+      <OrderForm onShipmentChange={jest.fn()} onClose={jest.fn()} />
+    </Provider>,
+  );
 
   fireEvent.input(screen.getByLabelText('ФИО'), { target: { value: 'Имя' } });
   expect(screen.getByLabelText('ФИО')).toHaveValue('Имя');
@@ -22,4 +30,5 @@ test('Проверяет работу компонента <OrderForm />', () =>
 
   fireEvent.click(screen.getByRole('button', { name: /дальше/i }));
   expect(screen.queryAllByText(/Обязательное поле/)).toHaveLength(0);
+  expect(screen.queryByRole('form')).toBeNull();
 });
