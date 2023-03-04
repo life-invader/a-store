@@ -1,6 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
-import { compareOptions } from '../../utils/utils';
 import type { ICartItem, ICategory, IProduct, IProductPreview, IProductOptions } from '../../types/types';
+import { compareOptions } from '../../utils/compare-options';
 import type { IProductsSlice } from './type';
 
 const initialState: IProductsSlice = {
@@ -31,13 +31,13 @@ const productsSlice = createSlice({
       state.isLoading = false;
       state.isError = false;
     },
-    setStatus(state, { payload }: PayloadAction<{ isLoading?: boolean, isError?: boolean }>) {
+    setStatus(state, { payload }: PayloadAction<{ isLoading: boolean, isError: boolean }>) {
       payload.isLoading && (state.isLoading = payload.isLoading);
       payload.isError && (state.isError = payload.isError);
     },
     loadItemToCart(state, { payload }: PayloadAction<IProductOptions>) {
       const itemsWithSameId = state.cart.filter(({ item }) => item.id === state.currentProduct?.id);
-      const foundItem = itemsWithSameId.filter((item) => compareOptions(item, payload))[0];
+      const foundItem = itemsWithSameId.filter((item) => compareOptions(item.options, payload))[0];
 
       if (foundItem) {
         foundItem.quantity += 1;
@@ -54,7 +54,7 @@ const productsSlice = createSlice({
     },
     incrementCartItem(state, { payload }: PayloadAction<ICartItem>) {
       const itemsWithSameId = state.cart.filter((item) => item.item.id === payload.item.id);
-      const foundItem = itemsWithSameId.filter((item) => compareOptions(item, payload.options))[0];
+      const foundItem = itemsWithSameId.filter((item) => compareOptions(item.options, payload.options))[0];
 
       if (!foundItem) {
         return;
@@ -65,7 +65,7 @@ const productsSlice = createSlice({
     },
     decrementCartItem(state, { payload }: PayloadAction<ICartItem>) {
       const itemsWithSameId = state.cart.filter((item) => item.item.id === payload.item.id);
-      const foundItem = itemsWithSameId.filter((item) => compareOptions(item, payload.options))[0];
+      const foundItem = itemsWithSameId.filter((item) => compareOptions(item.options, payload.options))[0];
 
       if (!foundItem) {
         return;
@@ -76,13 +76,16 @@ const productsSlice = createSlice({
     },
     removeCartItem(state, { payload }: PayloadAction<ICartItem>) {
       const itemsWithSameId = state.cart.filter((item) => item.item.id === payload.item.id);
-      const foundItem = itemsWithSameId.filter((item) => compareOptions(item, payload.options))[0];
+      const foundItem = itemsWithSameId.filter((item) => compareOptions(item.options, payload.options))[0];
 
       if (!foundItem) {
         return;
       }
 
       state.cart = state.cart.filter((item) => item !== foundItem);
+    },
+    clearCart(state) {
+      state.cart = [];
     },
   },
 })

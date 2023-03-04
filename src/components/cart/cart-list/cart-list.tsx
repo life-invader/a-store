@@ -1,6 +1,6 @@
-import { generateUniqueKey } from '../../../utils/utils';
 import { useSelector } from 'react-redux';
 import { selectCart } from '../../../store/products-slice/selectors';
+import { generateUniqueKey } from '../../../utils/generate-unique-key';
 import CartElement from '../cart-element/cart-element';
 
 import styles from './style.module.css';

@@ -15,8 +15,4 @@ export const selectIsCartLength = createSelector(selectCart, (cart) => {
     return acc += item.quantity
   }, 0);
 });
-export const selectCartTotalCost = createSelector(selectCart, (cart) => {
-  return cart.reduce((acc, item) => {
-    return acc += item.itemTotal
-  }, 0);
-});
+export const selectCartTotalCost = createSelector(selectCart, (cart) => cart.reduce((acc, { itemTotal }) => acc += itemTotal, 0));

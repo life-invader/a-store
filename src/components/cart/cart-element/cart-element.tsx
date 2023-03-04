@@ -1,10 +1,10 @@
 import { useDispatch } from 'react-redux';
 import { productsActions } from '../../../store/products-slice/products-slice';
-import { formatPrice } from '../../../utils/utils';
 import { AppRoutes } from '../../../constants/app-routes';
 import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { CartPanelContext } from '../../../context/cart-panel-context';
+import { formatPrice } from '../../../utils/format-price';
 import Image from '../../image/image';
 import type { ICartElementProps } from './type';
 import type { ICartItem } from '../../../types/types';

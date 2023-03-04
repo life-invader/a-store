@@ -1,13 +1,14 @@
 export interface IFormValues {
   name: string;
   email: string;
-  number: string;
+  phone: string;
   address: string;
-  shipment: string;
+  deliveryType: string;
   policy: boolean;
-  payment: string;
+  paymentType: string;
 }
 
 export interface IOrderFormProps {
   onShipmentChange: (index: number) => void;
+  onClose: () => void;
 }

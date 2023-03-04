@@ -8,14 +8,14 @@ const schema = yup
   .shape({
     name: yup.string().trim().required('Обязательное поле'),
     email: yup.string().lowercase().trim().email('Невалидный email').required('Обязательное поле'),
-    number: yup.string().required('Обязательное поле').matches(phoneRegex, 'Невалидный номер'),
+    phone: yup.string().required('Обязательное поле').matches(phoneRegex, 'Невалидный номер'),
     address: yup.string().trim(),
-    shipment: yup.string().required(),
+    deliveryType: yup.string().required('Обязательное поле'),
     policy: yup
       .boolean()
       .required()
       .oneOf([true], 'Вы должны быть согласны с условиями обработки личных данных'),
-    payment: yup.string().required('Выберите способ оплаты'),
+    paymentType: yup.string().required('Выберите способ оплаты'),
     comment: yup.string().trim(),
   })
   .required();
@@ -24,11 +24,11 @@ export const OrderInitValues = {
   defaultValues: {
     name: '',
     email: '',
-    number: '',
+    phone: '',
     address: '',
-    shipment: ShipmentOptions[0].value,
+    deliveryType: ShipmentOptions[0].value,
     policy: false,
-    payment: '',
+    paymentType: '',
     comment: '',
   },
   resolver: yupResolver(schema),

@@ -11,7 +11,7 @@ function Cart() {
   const cartLength = useSelector(selectIsCartLength);
   const cartTotal = useSelector(selectCartTotalCost);
 
-  const handleModalOpen = () => setOpen(!open);
+  const toggleModalOpen = () => setOpen(!open);
   const handleModalClose = () => {
     setOpen(false);
   };
@@ -25,7 +25,7 @@ function Cart() {
       <button
         className={styles.button}
         type="button"
-        onClick={handleModalOpen}
+        onClick={toggleModalOpen}
         data-testid="cart-button">
         <svg
           role="img"
@@ -46,7 +46,7 @@ function Cart() {
       </button>
 
       <CartPanelContext.Provider value={context}>
-        <CartPanel onClose={handleModalOpen} isOpen={open} total={cartTotal} />
+        <CartPanel onClose={toggleModalOpen} isOpen={open} total={cartTotal} />
       </CartPanelContext.Provider>
     </>
   );

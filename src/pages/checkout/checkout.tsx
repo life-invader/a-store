@@ -3,12 +3,13 @@ import OrderForm from './order-form/order-form';
 import CartList from '../../components/cart/cart-list/cart-list';
 import { selectCartTotalCost, selectIsCartEmpty } from '../../store/products-slice/selectors';
 import { useSelector } from 'react-redux';
-import { formatPrice } from '../../utils/utils';
 import { ShipmentOptions } from '../../constants/common';
+import { formatPrice } from '../../utils/format-price';
+import type { ICheckoutProps } from './type';
 
 import styles from './style.module.css';
 
-function Checkout() {
+function Checkout({ onClose }: ICheckoutProps) {
   const isEmpty = useSelector(selectIsCartEmpty);
   const cartTotal = useSelector(selectCartTotalCost);
   const [currentShipment, setCurrentShipment] = useState(0);
@@ -30,7 +31,7 @@ function Checkout() {
     <div className="container">
       <section className={styles.cart} data-testid="checkout">
         <div className={styles['form-wrapper']}>
-          <OrderForm onShipmentChange={onShipmentChange} />
+          <OrderForm onShipmentChange={onShipmentChange} onClose={onClose} />
         </div>
         <div>
           <div className={styles['list-wrapper']}>

@@ -10,7 +10,7 @@ function Modal() {
   const navigate = useNavigate();
 
   const open = hash === AppRoutes.Checkout;
-  const handleClose = () => {
+  const onCloseClickHandler = () => {
     if (state?.safe) {
       navigate(-1);
     } else {
@@ -22,7 +22,7 @@ function Modal() {
     <>
       <ModalResponsive
         open={open}
-        onClose={handleClose}
+        onClose={onCloseClickHandler}
         size="fullscreen"
         hasCloser={true}
         keepMounted>
@@ -30,9 +30,10 @@ function Modal() {
           hasCloser={true}
           sticky={true}
           title="Ваш заказ"
-          className={styles.modal}></ModalResponsive.Header>
+          className={styles.modal}
+        />
         <ModalResponsive.Content>
-          <Checkout />
+          <Checkout onClose={onCloseClickHandler} />
         </ModalResponsive.Content>
       </ModalResponsive>
     </>

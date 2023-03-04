@@ -1,5 +1,4 @@
 import { useParams } from 'react-router-dom';
-import { formatPrice } from '../../utils/utils';
 import ProductForm from './product-form/product-form';
 import Gallery from './gallery/gallery';
 import { useDispatch, useSelector } from 'react-redux';
@@ -11,6 +10,7 @@ import {
   selectIsLoading,
 } from '../../store/products-slice/selectors';
 import { useSpinnerDelay } from '../../hooks/use-spinner-delay';
+import { formatPrice } from '../../utils/format-price';
 import Spinner from '../../components/spinner/spinner';
 import Error from '../../components/error/error';
 

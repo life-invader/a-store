@@ -1,24 +1,34 @@
 import { useEffect } from 'react';
 import { PaymentOptions, ShipmentOptions } from '../../../constants/common';
-import { formatPrice } from '../../../utils/utils';
 import { SubmitHandler, useForm } from 'react-hook-form';
-import type { IFormValues, IOrderFormProps } from './type';
-import styles from './style.module.css';
 import { OrderInitValues } from './validation';
+import { formatPrice } from '../../../utils/format-price';
+import { useDispatch } from 'react-redux';
+import { productsActions } from '../../../store/products-slice/products-slice';
+import type { IFormValues, IOrderFormProps } from './type';
 
-function OrderForm({ onShipmentChange }: IOrderFormProps) {
+import styles from './style.module.css';
+
+const { clearCart } = productsActions;
+
+function OrderForm({ onShipmentChange, onClose }: IOrderFormProps) {
+  const dispatch = useDispatch();
   const {
     watch,
     register,
     handleSubmit,
     formState: { errors },
+    reset,
   } = useForm<IFormValues>(OrderInitValues);
 
   const submitForm: SubmitHandler<IFormValues> = (data) => {
     console.log(data);
+    reset();
+    dispatch(clearCart());
+    onClose();
   };
 
-  const shipmentOption = watch('shipment');
+  const shipmentOption = watch('deliveryType');
   useEffect(() => {
     const index = ShipmentOptions.findIndex((item) => {
       return shipmentOption === item.value;
@@ -58,19 +68,17 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
         </li>
 
         <li>
-          <label className={styles.label} htmlFor="number">
+          <label className={styles.label} htmlFor="phone">
             Телефон
           </label>
           <input
-            className={`${styles.input} ${errors.number ? styles.invalid : ''}`}
+            className={`${styles.input} ${errors.phone ? styles.invalid : ''}`}
             type="tel"
-            id="number"
+            id="phone"
             placeholder="+7 000 000 00 00"
-            {...register('number')}
+            {...register('phone')}
           />
-          {errors.number && (
-            <p className={styles.error}>{errors.number.message || 'Обязательное поле'}</p>
-          )}
+          {errors.phone && <p className={styles.error}>{errors.phone.message}</p>}
         </li>
 
         <li>
@@ -100,7 +108,7 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
                       type="radio"
                       id={value}
                       value={value}
-                      {...register('shipment')}
+                      {...register('deliveryType')}
                     />
                     <span>
                       {title}
@@ -111,7 +119,7 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
                 </li>
               );
             })}
-            {errors.shipment && <p className={styles.error}>Обязательное поле</p>}
+            {errors.deliveryType && <p className={styles.error}>{errors.deliveryType.message}</p>}
           </ul>
         </li>
 
@@ -159,7 +167,7 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
 
         <li>
           <h3 className={styles['sublist-title']}>Способ оплаты</h3>
-          <ul className={`${styles.sublist} ${errors.payment ? styles.invalid : ''}`}>
+          <ul className={`${styles.sublist} ${errors.paymentType ? styles.invalid : ''}`}>
             {PaymentOptions.map(({ id, title, value }) => {
               return (
                 <li key={id}>
@@ -169,7 +177,7 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
                       type="radio"
                       id={value}
                       value={value}
-                      {...register('payment')}
+                      {...register('paymentType')}
                     />
                     <span>{title}</span>
                     <span className={styles['custom-radio']} />
@@ -178,7 +186,7 @@ function OrderForm({ onShipmentChange }: IOrderFormProps) {
               );
             })}
           </ul>
-          {errors.payment && <p className={styles.error}>Выберите способ оплаты</p>}
+          {errors.paymentType && <p className={styles.error}>{errors.paymentType.message}</p>}
         </li>
       </ul>
 

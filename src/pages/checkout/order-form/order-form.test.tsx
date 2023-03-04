@@ -3,7 +3,7 @@ import { fireEvent, render, screen } from '@testing-library/react';
 import OrderForm from './order-form';
 
 test('Проверяет работу компонента <OrderForm />', () => {
-  render(<OrderForm onShipmentChange={jest.fn()} />);
+  render(<OrderForm onShipmentChange={jest.fn()} onClose={jest.fn()} />);
 
   fireEvent.input(screen.getByLabelText('ФИО'), { target: { value: 'Имя' } });
   expect(screen.getByLabelText('ФИО')).toHaveValue('Имя');
