@@ -33,3 +33,16 @@
 .policy:hover {
   color: #ef3124;
 }
+
+.frame {
+  border: none;
+  width: 100%;
+  max-width: 760px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 60px;
+    margin-bottom: 10px;
+  }
+}

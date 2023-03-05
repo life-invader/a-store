@@ -21,7 +21,7 @@ function Contacts() {
           href="https://store.alfabank.ru/policy"
           target="_blank"
           rel="noreferrer">
-          Политика конфиденциальностии обработки персональных данных
+          Политика конфиденциальности и обработки персональных данных
         </a>
       </div>
 
