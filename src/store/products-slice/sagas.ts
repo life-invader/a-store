@@ -1,9 +1,12 @@
-import { takeLatest, call, put } from 'redux-saga/effects';
+import { takeLatest, takeLeading, call, put, select } from 'redux-saga/effects';
 import { productsActions } from './products-slice';
-import { getAlfaProductsAction, getCustomProductsAction, getProductAction } from './actions';
+import { getAlfaProductsAction, getCustomProductsAction, getProductAction, postOrderAction } from './actions';
 import { PayloadAction } from '@reduxjs/toolkit';
 import { ApiRoutes } from '../../constants/api-routes';
-import type { ICategory, IProduct, IProductPreview } from '../../types/types';
+import { selectCart } from './selectors';
+import { OrderStatus } from '../../constants/common';
+import type { ICartItem, ICategory, IProduct, IProductPreview } from '../../types/types';
+import type { IFormValues } from '../../pages/checkout/type';
 
 function* getAlfaProductsSaga() {
   try {
@@ -36,6 +39,35 @@ function* getProductSaga({ payload }: PayloadAction<string>) {
   } catch {
     yield put(productsActions.setStatus({ isError: true, isLoading: false }));
   }
+}
+
+function* postOrderSaga({ payload }: PayloadAction<IFormValues>) {
+  const cart: ICartItem[] = yield select(selectCart);
+  const products = cart.map(({ item, itemTotal, options, quantity }) => {
+    return {
+      id: item.id,
+      totalPrice: itemTotal,
+      totalCount: quantity,
+      ...options,
+    }
+  });
+
+  try {
+    const order = {
+      ...payload,
+      products,
+    };
+
+    yield put(productsActions.setOrderStatus(OrderStatus.Default));
+    yield call(fetch, ApiRoutes.Order, { method: 'POST', body: JSON.stringify(order), headers: { 'Content-Type': 'Application/json' } });
+    yield put(productsActions.setOrderStatus(OrderStatus.Success));
+  } catch {
+    yield put(productsActions.setOrderStatus(OrderStatus.Error));
+  }
+}
+
+export function* postOrderSagaSagaWatcher() {
+  yield takeLeading(postOrderAction.type, postOrderSaga);
 }
 
 export function* alfaProductsSagaWatcher() {

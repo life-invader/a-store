@@ -1,40 +1,22 @@
-import { useEffect } from 'react';
 import { PaymentOptions, ShipmentOptions } from '../../../constants/common';
-import { SubmitHandler, useForm } from 'react-hook-form';
-import { OrderInitValues } from './validation';
-import { formatPrice } from '../../../utils/format-price';
+import { SubmitHandler, useFormContext } from 'react-hook-form';
 import { useDispatch } from 'react-redux';
-import { productsActions } from '../../../store/products-slice/products-slice';
-import type { IFormValues, IOrderFormProps } from './type';
+import { postOrderAction } from '../../../store/products-slice/actions';
+import type { IFormValues } from '../type';
 
 import styles from './style.module.css';
 
-const { clearCart } = productsActions;
-
-function OrderForm({ onShipmentChange, onClose }: IOrderFormProps) {
+function OrderForm() {
   const dispatch = useDispatch();
   const {
-    watch,
     register,
     handleSubmit,
     formState: { errors },
-    reset,
-  } = useForm<IFormValues>(OrderInitValues);
+  } = useFormContext<IFormValues>();
 
   const submitForm: SubmitHandler<IFormValues> = (data) => {
-    console.log(data);
-    reset();
-    dispatch(clearCart());
-    onClose();
+    dispatch(postOrderAction(data));
   };
-
-  const shipmentOption = watch('deliveryType');
-  useEffect(() => {
-    const index = ShipmentOptions.findIndex((item) => {
-      return shipmentOption === item.value;
-    });
-    onShipmentChange(index);
-  }, [onShipmentChange, shipmentOption]);
 
   return (
     <form className={styles.form} onSubmit={handleSubmit(submitForm)}>
@@ -97,9 +79,7 @@ function OrderForm({ onShipmentChange, onClose }: IOrderFormProps) {
         <li>
           <h3 className={styles['sublist-title']}>Доставка</h3>
           <ul className={styles.sublist}>
-            {ShipmentOptions.map(({ id, cost, value, title }) => {
-              const shipmentCost = cost ? ` — ${formatPrice(cost)} ₽` : '';
-
+            {ShipmentOptions.map(({ id, value, title }) => {
               return (
                 <li key={id}>
                   <label className={styles['radio-label']} htmlFor={value}>
@@ -107,13 +87,10 @@ function OrderForm({ onShipmentChange, onClose }: IOrderFormProps) {
                       className={`${styles['radio-input']} visually-hidden`}
                       type="radio"
                       id={value}
-                      value={value}
+                      value={title}
                       {...register('deliveryType')}
                     />
-                    <span>
-                      {title}
-                      {shipmentCost}
-                    </span>
+                    <span>{title}</span>
                     <span className={styles['custom-radio']} />
                   </label>
                 </li>
@@ -176,7 +153,7 @@ function OrderForm({ onShipmentChange, onClose }: IOrderFormProps) {
                       className={`${styles['radio-input']} visually-hidden`}
                       type="radio"
                       id={value}
-                      value={value}
+                      value={title}
                       {...register('paymentType')}
                     />
                     <span>{title}</span>

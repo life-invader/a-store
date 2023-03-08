@@ -1,6 +1,6 @@
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import { ShipmentOptions } from '../../../constants/common';
+import { ShipmentOptions } from '../../constants/common';
 
 const phoneRegex = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
 const schema = yup
@@ -26,7 +26,7 @@ export const OrderInitValues = {
     email: '',
     phone: '',
     address: '',
-    deliveryType: ShipmentOptions[0].value,
+    deliveryType: ShipmentOptions[0].title,
     policy: false,
     paymentType: '',
     comment: '',

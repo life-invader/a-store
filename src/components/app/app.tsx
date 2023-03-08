@@ -18,7 +18,7 @@ function App() {
         <Outlet />
       </main>
       <Footer />
-      {isCartVisible && <Cart />}
+      {!isCartVisible && <Cart />}
       <Modal />
     </>
   );

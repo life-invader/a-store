@@ -1,4 +1,5 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
+import { OrderStatus } from '../../constants/common';
 import type { ICartItem, ICategory, IProduct, IProductPreview, IProductOptions } from '../../types/types';
 import { compareOptions } from '../../utils/compare-options';
 import type { IProductsSlice } from './type';
@@ -10,6 +11,7 @@ const initialState: IProductsSlice = {
   cart: [],
   isLoading: true,
   isError: false,
+  orderStatus: OrderStatus.Default,
 };
 
 const productsSlice = createSlice({
@@ -86,6 +88,9 @@ const productsSlice = createSlice({
     },
     clearCart(state) {
       state.cart = [];
+    },
+    setOrderStatus(state, { payload }: PayloadAction<OrderStatus>) {
+      state.orderStatus = payload;
     },
   },
 })
