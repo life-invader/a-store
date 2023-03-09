@@ -4,5 +4,5 @@ export const AppRoutes = {
   CustomDesign: '/svoy-dizain',
   Product: (id: number | string = ':id') => `/product/${id}`,
   Contacts: '/contact-us',
-  Cart: '/cart',
+  Checkout: '#checkout',
 }

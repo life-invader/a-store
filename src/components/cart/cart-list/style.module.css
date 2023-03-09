@@ -1,31 +1,6 @@
 .list {
   padding: 20px 0;
-  position: relative;
   display: flex;
   flex-direction: column;
   gap: 40px;
-}
-
-.list::before, .list::after {
-  content: '';
-  position: absolute;
-  left: 0;
-  right: 0;
-  height: 1px;
-  background-color: #b8b8b8;
-}
-
-.list::before {
-  top: 0;
-}
-
-.list::after {
-  bottom: 0;
-}
-
-.total {
-  text-align: right;
-  margin-top: 10px;
-  font-weight: 500;
-  font-size: 18px;
 }

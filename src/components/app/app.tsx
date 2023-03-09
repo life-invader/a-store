@@ -4,6 +4,7 @@ import { selectIsCartEmpty } from '../../store/products-slice/selectors';
 import Cart from '../cart/cart/cart';
 import Footer from '../footer/footer';
 import Header from '../header/header';
+import Modal from '../modal/modal';
 
 import styles from './style.module.css';
 
@@ -18,6 +19,7 @@ function App() {
       </main>
       <Footer />
       {isCartVisible && <Cart />}
+      <Modal />
     </>
   );
 }
