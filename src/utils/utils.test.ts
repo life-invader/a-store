@@ -1,4 +1,5 @@
-import { formatPrice, prepareSelectData, transformOptions } from "./utils";
+import { formatPrice } from "./format-price";
+import { transformOptions } from "./transform-options";
 
 describe('Тестирование утилитарных функций', () => {
   it('Тестирование функции форматирования цены formatPrice', () => {
@@ -6,17 +7,6 @@ describe('Тестирование утилитарных функций', () =>
     const result = '4 999';
 
     expect(formatPrice(price).replace(/\s/, ' ')).toBe(result);
-  });
-
-  it('Тестирование функции prepareSelectData', () => {
-    const initData = ['white', 'black', 'cyan'];
-    const result = [
-      { key: '0', content: 'white' },
-      { key: '1', content: 'black' },
-      { key: '2', content: 'cyan' },
-    ];
-
-    expect(prepareSelectData(initData)).toEqual(result);
   });
 
   it('Тестирование функции transformOptions', () => {

@@ -1,8 +1,9 @@
 import { useEffect, useMemo, useState } from 'react';
-import { prepareSelectData, transformOptions } from '../../../utils/utils';
 import { Select } from '../select/select';
 import { useDispatch } from 'react-redux';
 import { productsActions } from '../../../store/products-slice/products-slice';
+import { transformOptions } from '../../../utils/transform-options';
+import { formatDataToOptionShape } from './utils';
 import type { ISelectOptions } from './type';
 import type { IProduct } from '../../../types/types';
 
@@ -12,9 +13,13 @@ function ProductForm(product: IProduct) {
   const dispatch = useDispatch();
 
   const selectsData = useMemo(() => {
-    return [product.colors, product.models, product.sizes, product.stickerNumbers].map((item) =>
-      prepareSelectData(item),
-    );
+    return [product.colors, product.models, product.sizes, product.stickerNumbers].map((item) => {
+      if (!item) {
+        return undefined;
+      }
+
+      return formatDataToOptionShape(item);
+    });
   }, [product.colors, product.models, product.sizes, product.stickerNumbers]);
   const [colors, models, sizes, stickerNumbers] = selectsData;
 

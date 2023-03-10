@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { formatPrice } from '../../../utils/utils';
 import { AppRoutes } from '../../../constants/app-routes';
 import Image from '../../image/image';
+import { formatPrice } from '../../../utils/format-price';
 import type { IProductPreview } from '../../../types/types';
 
 import styles from './style.module.css';

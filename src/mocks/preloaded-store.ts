@@ -1,3 +1,4 @@
+import { OrderStatus } from "../constants/common";
 import type { IProductsSlice } from "../store/products-slice/type";
 import { AlfaMadeProductsMock } from "./api-made-in-alfa";
 import { CustomDesignProductsMock } from "./api-your-design";
@@ -44,4 +45,5 @@ export const preloadedStore: IProductsSlice = {
   ],
   isLoading: false,
   isError: false,
+  orderStatus: OrderStatus.Default
 }

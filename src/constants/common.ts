@@ -18,13 +18,13 @@ export const MINIMUM_SPINNER_DELAY = 1000;
 export const ShipmentOptions = [
   {
     id: 0,
-    title: 'Доставка по России',
+    title: 'Доставка по России — 350₽',
     value: 'shipment-russia',
     cost: 350,
   },
   {
     id: 1,
-    title: 'Курьером по Москве',
+    title: 'Курьером по Москве — 300₽',
     value: 'shipment-moscow',
     cost: 300,
   },
@@ -40,3 +40,9 @@ export const PaymentOptions = [
   { id: 0, title: 'Банковская карта', value: 'payment-card' },
   { id: 1, title: 'Промокод', value: 'payment-promo' }
 ];
+
+export const enum OrderStatus {
+  Success,
+  Error,
+  Default,
+}

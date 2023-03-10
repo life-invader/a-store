@@ -10,4 +10,39 @@
 .title {
   font-size: 110px;
   line-height: 1.2;
+  margin-bottom: 50px;
+}
+
+.address {
+  margin: 20px 0;
+}
+
+.wrapper {
+  padding: 20px 0;
+}
+
+.policy {
+  display: block;
+  text-decoration: underline;
+  color: inherit;
+  margin-top: 20px;
+  font-size: 16px;
+  transition: color 0.2s;
+}
+
+.policy:hover {
+  color: #ef3124;
+}
+
+.frame {
+  border: none;
+  width: 100%;
+  max-width: 760px;
+}
+
+@media (max-width: 768px) {
+  .title {
+    font-size: 60px;
+    margin-bottom: 10px;
+  }
 }

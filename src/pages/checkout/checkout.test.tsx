@@ -9,10 +9,11 @@ import Checkout from './checkout';
 describe('Проверяет рендер страницы <Checkout />', () => {
   test('Проверяет рендер страницы <Checkout /> с пустой корзиной', () => {
     const store = createMockStore();
+    const closeModal = jest.fn();
 
     render(
       <Provider store={store}>
-        <Checkout />
+        <Checkout onClose={closeModal} />
       </Provider>,
       { wrapper: MemoryRouter },
     );
@@ -25,10 +26,11 @@ describe('Проверяет рендер страницы <Checkout />', () => 
 describe('Проверяет рендер страницы <Checkout /> с товарами в корзине', () => {
   test('Проверяет рендер страницы <Checkout /> с пустой корзиной', () => {
     const store = createMockStore(preloadedStore);
+    const closeModal = jest.fn();
 
     render(
       <Provider store={store}>
-        <Checkout />
+        <Checkout onClose={closeModal} />
       </Provider>,
       { wrapper: MemoryRouter },
     );

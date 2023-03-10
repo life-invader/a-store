@@ -11,30 +11,26 @@
   top: 100px;
   right: 35px;
   cursor: pointer;
-  transition: all 0.2s;
+  transition: transform 0.2s;
 }
 
-.button:hover .amount {
-  width: 80px;
-  height: 80px;
-  top: 0;
-  left: 0;
-  font-size: 30px;
-  transition-delay: 0s;
+.button:hover {
+  transform: scale(1.1);
 }
 
 .amount {
   color: #ffffff;
-  width: 30px;
+  min-width: 30px;
   height: 30px;
+  padding: 2px 5px;
   background-color: #000000;
-  border-radius: 50%;
+  border-radius: 30px;
   display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
-  top: 55px;
-  left: 50px;
+  bottom: -5px;
+  right: 0;
   transition: all 0.2s;
   transition-delay: 0.5s;
 }
@@ -47,15 +43,10 @@
     right: 25px;
   }
 
-  .button:hover .amount {
-    width: 60px;
-    height: 60px;
-  }
 
   .amount {
-    width: 24px;
+    min-width: 24px;
     height: 24px;
-    top: 40px;
-    left: 40px;
+    border-radius: 24px;
   }
 }
